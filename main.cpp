@@ -1,10 +1,14 @@
 #include "Calculator_Qt.h"
-#include <QtWidgets/QApplication>
+#include <QApplication>
+#include <QWidget>
+#include <QtWidgets>
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    Calculator_Qt w;
-    w.show();
-    return a.exec();
+    QApplication app(argc, argv);
+
+    Calculator_Qt window;
+    window.show();
+
+    return app.exec();
 }
