@@ -16,6 +16,8 @@ public:
 private:
     Ui::Calculator_QtClass ui;
     //QLabel* thelabel;
+public:
+    double ans = 0;
 
 private slots:
     void on_btn0_clicked();

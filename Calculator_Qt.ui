@@ -13,6 +13,17 @@
   <property name="windowTitle">
    <string>Calculator_Qt</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton::hover {
+    background-color: #E1E1E1;
+}
+
+QPushButton:pressed {
+    background-color: #D2D2D2;
+}
+
+</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="dot_btn">
     <property name="geometry">
@@ -37,6 +48,9 @@ line-height: normal;</string>
     <property name="text">
      <string>.</string>
     </property>
+    <property name="shortcut">
+     <string>.</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="equal_btn">
     <property name="geometry">
@@ -47,10 +61,13 @@ line-height: normal;</string>
       <height>85</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>Enter</string>
+    </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
 background: #19ACFF;
-box-shadow: -8px 10px 10px 0px rgba(25, 172, 255, 0.50);
+
 color: #CEE4F8;
 font-family: Inter;
 font-size: 30px;
@@ -60,6 +77,9 @@ line-height: normal;</string>
     </property>
     <property name="text">
      <string>=</string>
+    </property>
+    <property name="shortcut">
+     <string>Enter</string>
     </property>
    </widget>
    <widget class="QPushButton" name="plus_btn">
@@ -82,6 +102,9 @@ font-weight: 500;
 line-height: normal;</string>
     </property>
     <property name="text">
+     <string>+</string>
+    </property>
+    <property name="shortcut">
      <string>+</string>
     </property>
    </widget>
@@ -108,6 +131,9 @@ line-height: normal;</string>
     <property name="text">
      <string>0</string>
     </property>
+    <property name="shortcut">
+     <string>0</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="ans_btn">
     <property name="geometry">
@@ -117,6 +143,9 @@ line-height: normal;</string>
       <width>50</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>a</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
@@ -131,6 +160,9 @@ line-height: normal;</string>
     </property>
     <property name="text">
      <string>ans</string>
+    </property>
+    <property name="shortcut">
+     <string>A</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn3">
@@ -172,13 +204,14 @@ line-height: normal;</string>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
 box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
 font-style: normal;
 font-weight: 500;
-line-height: normal;</string>
+line-height: normal;
+
+</string>
     </property>
     <property name="text">
      <string>2</string>
@@ -398,6 +431,9 @@ line-height: normal;</string>
     <property name="text">
      <string>-</string>
     </property>
+    <property name="shortcut">
+     <string>-</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="mult_btn">
     <property name="geometry">
@@ -421,6 +457,9 @@ line-height: normal;</string>
     <property name="text">
      <string>*</string>
     </property>
+    <property name="shortcut">
+     <string>*</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="Del_btn">
     <property name="geometry">
@@ -430,6 +469,9 @@ line-height: normal;</string>
       <width>50</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;-</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
@@ -445,7 +487,7 @@ line-height: normal;</string>
      <string>Del</string>
     </property>
     <property name="shortcut">
-     <string>Del</string>
+     <string>Backspace</string>
     </property>
    </widget>
    <widget class="QPushButton" name="divide_btn">
@@ -470,6 +512,9 @@ line-height: normal;</string>
     <property name="text">
      <string>/</string>
     </property>
+    <property name="shortcut">
+     <string>/</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="AC_btn">
     <property name="geometry">
@@ -479,6 +524,9 @@ line-height: normal;</string>
       <width>50</width>
       <height>50</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>c</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
@@ -493,6 +541,9 @@ line-height: normal;</string>
     </property>
     <property name="text">
      <string>AC</string>
+    </property>
+    <property name="shortcut">
+     <string>C</string>
     </property>
    </widget>
    <widget class="QPushButton" name="leftBracket_btn">
@@ -615,7 +666,7 @@ line-height: normal;</string>
     <property name="styleSheet">
      <string notr="true">color: #000;
 font-family: Inter;
-font-size: 40px;
+font-size: 35px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;</string>
@@ -636,7 +687,7 @@ line-height: normal;</string>
     <property name="styleSheet">
      <string notr="true">color: #5C5B5B;
 font-family: Inter;
-font-size: 18px;
+font-size: 20px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;</string>

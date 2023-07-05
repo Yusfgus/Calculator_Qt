@@ -6,6 +6,7 @@ Calculator_Qt::Calculator_Qt(QWidget *parent) : QMainWindow(parent)
 {
     ui.setupUi(this);
     on_AC_btn_clicked();
+	ui.label2->clear();
 }
 
 Calculator_Qt::~Calculator_Qt()
@@ -69,13 +70,14 @@ void Calculator_Qt::on_dot_btn_clicked()
 
 void Calculator_Qt::on_ans_btn_clicked()
 {
-    
+	ui.label1->setText(ui.label1->text() + QString::number(ans));
 }
 
 void Calculator_Qt::on_equal_btn_clicked()
 {
 	std::cout << "in solve\n";
-	this->Solve();
+	if(ui.label1->text()!="")
+		this->Solve();
 	std::cout << "from solve\n";
 }
 
@@ -168,7 +170,7 @@ int Calculator_Qt::Solve()
 	std::stack<std::string>temp;
 
 	//cout << "Hello to calculator\n";
-	while (t == 'y')
+	
 	{
 		//cout << "\n--> ";
 		//cin >> line;
@@ -304,11 +306,14 @@ int Calculator_Qt::Solve()
 		}
 
 		//cout << "The answer: " << numbers.top() << endl;
-		ui.label2->setText(QString::number(numbers.top()));
+		ui.label2->setText(ui.label1->text());
 
+		ui.label1->setText(QString::number(numbers.top()));
+
+		ans = numbers.top();
 		//cout << "\nIf you want to try again enter (y) \n";
 		//cin >> t;
-		t = 'n';
+	
 	}
 
 	return 0;
