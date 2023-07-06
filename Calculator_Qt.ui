@@ -25,6 +25,12 @@ QPushButton:pressed {
 </string>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <widget class="QPushButton" name="dot_btn">
     <property name="geometry">
      <rect>
@@ -513,7 +519,7 @@ line-height: normal;</string>
      <string>/</string>
     </property>
     <property name="shortcut">
-     <string>/</string>
+     <string>Ctrl+S</string>
     </property>
    </widget>
    <widget class="QPushButton" name="AC_btn">
@@ -651,7 +657,7 @@ line-height: normal;</string>
      <string>^</string>
     </property>
     <property name="shortcut">
-     <string>Ctrl+S</string>
+     <string>^</string>
     </property>
    </widget>
    <widget class="QLabel" name="label1">
