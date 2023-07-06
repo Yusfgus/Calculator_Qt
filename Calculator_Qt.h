@@ -15,7 +15,6 @@ public:
 
 private:
     Ui::Calculator_QtClass ui;
-    //QLabel* thelabel;
 public:
     double ans = 0;
 
