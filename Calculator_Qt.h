@@ -48,4 +48,6 @@ private slots:
     void on_Del_btn_clicked();
 
     int Solve();
+
+    void on_changecss_clicked();
 };
