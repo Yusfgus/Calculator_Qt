@@ -603,7 +603,7 @@ line-height: normal;</string>
      <string>)</string>
     </property>
     <property name="shortcut">
-     <string>)</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="modulas_btn">
@@ -700,6 +700,27 @@ line-height: normal;</string>
     </property>
     <property name="text">
      <string>1+2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="changecss">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>30</y>
+      <width>75</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 10px;
+background: #B2E3FF;
+font-family: Inter;
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>dark</string>
     </property>
    </widget>
   </widget>
