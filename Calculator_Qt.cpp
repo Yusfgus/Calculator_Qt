@@ -310,33 +310,56 @@ int Calculator_Qt::Solve()
 	return 0;
 }
 
-void Calculator_Qt::on_changecss_clicked()
+void Calculator_Qt::on_change_theme_btn_clicked()
 {
-	ui.changecss->setStyleSheet("border-radius: 10px;background: #2E3138; color: #1E86CF;");
-	ui.changecss->setText("light");
-	ui.centralWidget->setStyleSheet("background-color: #0B0C0D ;");
-	ui.label1->setStyleSheet("color: #E1E1E1; font-family: Inter; font-size: 40px; font-style: normal; font-weight: 500; line-height: normal; ");
-	ui.btn0->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.btn1->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.btn2->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.btn3->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.btn4->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.btn5->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.btn6->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.btn7->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.btn8->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.btn9->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.ans_btn->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.dot_btn->setStyleSheet("border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;");
-	ui.equal_btn->setStyleSheet("color: #B2DAFF; font-family: Inter;font-size: 30px; font-style: normal; font-weight: 500 ; border-radius: 14px; background: #1991FF; ");
-	ui.plus_btn->setStyleSheet("border-radius: 14px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 30px;font-style: normal;font-weight: 500;line-height: normal; ");
-	ui.minus_btn->setStyleSheet("border-radius: 14px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 30px;font-style: normal;font-weight: 500;line-height: normal; ");
-	ui.mult_btn->setStyleSheet("border-radius: 14px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 30px;font-style: normal;font-weight: 500;line-height: normal; ");
-	ui.divide_btn->setStyleSheet("border-radius: 14px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 30px;font-style: normal;font-weight: 500;line-height: normal; ");
-	ui.rightBracket_btn->setStyleSheet("border-radius: 10px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 15px;font-style: normal;font-weight: 500;line-height: normal; ");
-	ui.leftBracket_btn->setStyleSheet("border-radius: 10px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 15px;font-style: normal;font-weight: 500;line-height: normal; ");
-	ui.modulas_btn->setStyleSheet("border-radius: 10px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 15px;font-style: normal;font-weight: 500;line-height: normal; ");
-	ui.power_btn->setStyleSheet("border-radius: 10px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 15px;font-style: normal;font-weight: 500;line-height: normal; ");
-	ui.AC_btn->setStyleSheet("border-radius: 14px; background: #616161; color: #A0A1A2; font-family: Inter; font-size: 28px; ");
-	ui.Del_btn->setStyleSheet("border-radius: 14px; background: #616161; color: #A0A1A2; font-family: Inter; font-size: 28px; ");
+	QString style1, style2, style3, style4;
+	if (ui.change_theme_btn->text() == "dark") // currently it's light mode
+	{
+		ui.change_theme_btn->setStyleSheet("border-radius: 10px;background: #2E3138; color: #1E86CF;");
+		ui.change_theme_btn->setText("light");
+		ui.centralWidget->setStyleSheet("background-color: #0B0C0D ;");
+		ui.label1->setStyleSheet("color: #E1E1E1; font-family: Inter; font-size: 40px; font-style: normal; font-weight: 500; line-height: normal; ");
+		ui.equal_btn->setStyleSheet("color: #B2DAFF; font-family: Inter;font-size: 30px; font-style: normal; font-weight: 500 ; border-radius: 14px; background: #1991FF; ");
+		style1 = "border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;";
+		style2 = "border-radius: 14px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 30px;font-style: normal;font-weight: 500;line-height: normal; ";
+		style3 = "border-radius: 10px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 15px;font-style: normal;font-weight: 500;line-height: normal; ";
+		style4 = "border-radius: 14px; background: #616161; color: #A0A1A2; font-family: Inter; font-size: 28px; ";
+	}
+	else // currently it's dark mode
+	{
+		ui.change_theme_btn->setStyleSheet("border-radius: 10px;\nbackground: #B2E3FF;\nfont-family: Inter;\n\n\n");
+		ui.change_theme_btn->setText("dark");
+		ui.centralWidget->setStyleSheet("");
+		ui.label1->setStyleSheet("color: #000;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
+		ui.equal_btn->setStyleSheet("border-radius: 14px;\nbackground: #19ACFF;\n\ncolor: #CEE4F8;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
+		style1 = style4 = "border-radius: 14px;\nbox-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;\n\n";
+		style2 = "border-radius: 14px;\nbackground: #ADE1FF;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;";
+		style3 = "border-radius: 10px;\nbackground: #ADE1FF;\n\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 15px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;";
+	}
+
+	ui.btn0->setStyleSheet(style1);
+	ui.btn1->setStyleSheet(style1);
+	ui.btn2->setStyleSheet(style1);
+	ui.btn3->setStyleSheet(style1);
+	ui.btn4->setStyleSheet(style1);
+	ui.btn5->setStyleSheet(style1);
+	ui.btn6->setStyleSheet(style1);
+	ui.btn7->setStyleSheet(style1);
+	ui.btn8->setStyleSheet(style1);
+	ui.btn9->setStyleSheet(style1);
+	ui.ans_btn->setStyleSheet(style1);
+	ui.dot_btn->setStyleSheet(style1);
+
+	ui.plus_btn->setStyleSheet(style2);
+	ui.minus_btn->setStyleSheet(style2);
+	ui.mult_btn->setStyleSheet(style2);
+	ui.divide_btn->setStyleSheet(style2);
+
+	ui.rightBracket_btn->setStyleSheet(style3);
+	ui.leftBracket_btn->setStyleSheet(style3);
+	ui.modulas_btn->setStyleSheet(style3);
+	ui.power_btn->setStyleSheet(style3);
+
+	ui.AC_btn->setStyleSheet(style4);
+	ui.Del_btn->setStyleSheet(style4);
 }

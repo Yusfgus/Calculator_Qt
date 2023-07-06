@@ -664,10 +664,13 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>160</y>
+      <y>170</y>
       <width>260</width>
       <height>60</height>
      </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #000;
@@ -679,6 +682,9 @@ line-height: normal;</string>
     </property>
     <property name="text">
      <string>3</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label2">
@@ -702,11 +708,11 @@ line-height: normal;</string>
      <string>1+2</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="changecss">
+   <widget class="QPushButton" name="change_theme_btn">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>30</y>
+      <x>210</x>
+      <y>10</y>
       <width>75</width>
       <height>24</height>
      </rect>

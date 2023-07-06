@@ -10,7 +10,7 @@ class Calculator_Qt : public QMainWindow
     Q_OBJECT
 
 public:
-    Calculator_Qt(QWidget *parent = nullptr);
+    Calculator_Qt(QWidget* parent = nullptr);
     ~Calculator_Qt();
 
 private:
@@ -49,5 +49,5 @@ private slots:
 
     int Solve();
 
-    void on_changecss_clicked();
+    void on_change_theme_btn_clicked();
 };
