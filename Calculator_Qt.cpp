@@ -246,6 +246,23 @@ int Calculator_Qt::Solve()
 				percentage = false;
 			}
 
+			if (line[i] == '-' && i == 0)
+			{
+				Postfix += "0 ";
+				negative = true;
+				continue;
+			}
+			if (line[i] == '-' && i > 0)
+			{
+				if (line[i - 1] < '0' || line[i - 1] > '9' || i == 0)
+				{
+					Postfix += "0 ";
+					negative = true;
+					continue;
+				}
+
+			}
+
 			if (!temp.empty() && !brackets && line[i] != '(' && line[i] != '^' && line[i] != '%')
 			{
 				if (temp.top() == "*" || temp.top() == "/" || temp.top() == "^" || temp.top() == "%") {
@@ -269,22 +286,7 @@ int Calculator_Qt::Solve()
 				brackets = false;
 			}
 			else {
-				if (line[i] == '-'&&i==0)
-				{	
-						Postfix += "0 ";
-						negative = true;
-						continue;
-				}
-				if (line[i] == '-' && i > 0)
-				{
-					if (line[i - 1] < '0' || line[i - 1] > '9' || i == 0)
-					{
-						Postfix += "0 ";
-						negative = true;
-						continue;
-					}
-
-				}
+				
 				s = line[i];
 				temp.push(s);
 				if (line[i] == '%')
@@ -298,7 +300,16 @@ int Calculator_Qt::Solve()
 		Postfix += "p";
 	}
 
-	Postfix += num;
+	if (negative)
+	{
+		Postfix += num + "-";
+		num = "";
+		negative = false;
+	}
+	else
+	{
+		Postfix += num;
+	}
 
 	while (!temp.empty())
 	{
