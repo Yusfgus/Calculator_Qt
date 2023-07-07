@@ -125,7 +125,7 @@ void Calculator_Qt::on_minus_btn_clicked()
 void Calculator_Qt::on_mult_btn_clicked()
 {
 	newLine();
-	ui.screen1->setText(ui.screen1->text() + "x");
+	ui.screen1->setText(ui.screen1->text() + "*");
 }
 
 void Calculator_Qt::on_divide_btn_clicked()
@@ -241,7 +241,7 @@ int Calculator_Qt::Solve()
 
 			if (!temp.empty() && !brackets && line[i] != '(' && line[i] != '^' && line[i] != '%')
 			{
-				if (temp.top() == "x" || temp.top() == "/" || temp.top() == "^" || temp.top() == "%") {
+				if (temp.top() == "*" || temp.top() == "/" || temp.top() == "^" || temp.top() == "%") {
 					Postfix += temp.top();
 					temp.pop();
 				}
@@ -334,7 +334,7 @@ int Calculator_Qt::Solve()
 				numbers.push(Sub(num1, num2));
 			else if (Postfix[i] == '+')
 				numbers.push(Add(num1, num2));
-			else if (Postfix[i] == 'x')
+			else if (Postfix[i] == '*')
 				numbers.push(mult(num1, num2));
 			else if (Postfix[i] == '/')
 				numbers.push(dive(num1, num2));
@@ -374,7 +374,7 @@ void Calculator_Qt::on_change_theme_btn_clicked()
 		ui.change_theme_btn->setStyleSheet("border-radius: 10px;\nbackground: #B2E3FF;\nfont-family: Inter;\n\n\n");
 		ui.change_theme_btn->setText("dark");
 		ui.centralWidget->setStyleSheet("");
-		ui.screen1->setStyleSheet("color: #000;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
+		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\n\ncolor: #000;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
 		ui.equal_btn->setStyleSheet("border-radius: 14px;\nbackground: #19ACFF;\n\ncolor: #CEE4F8;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
 		style1 = style4 = "border-radius: 14px;\nbox-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;\n\n";
 		style2 = "border-radius: 14px;\nbackground: #ADE1FF;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;";
@@ -413,7 +413,7 @@ void Calculator_Qt::on_screen1_textChanged()
 	if (ui.screen1->text() == "")return;
 	int length = ui.screen1->text().length();
 	QChar newChar = ui.screen1->text()[length - 1];
-	QString valid = "0123456789.+-x/^%()";
+	QString valid = "0123456789.+-*/^%()";
 	if (valid.contains(newChar) || length >= 3 && ui.screen1->text()[length - 3] == 'a')
 		return;
 	else

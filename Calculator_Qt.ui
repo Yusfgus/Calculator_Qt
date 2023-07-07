@@ -461,7 +461,7 @@ font-weight: 500;
 line-height: normal;</string>
     </property>
     <property name="text">
-     <string>x</string>
+     <string>*</string>
     </property>
     <property name="shortcut">
      <string>*</string>
