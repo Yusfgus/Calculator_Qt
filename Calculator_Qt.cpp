@@ -108,6 +108,7 @@ void Calculator_Qt::newLine()
 	ui.screen1->clear();
 	ui.screen1->setAlignment(Qt::AlignLeft);
 	ui.screen1->setEnabled(true);
+	ui.screen1->setText(QString::number(ans));
 }
 
 void Calculator_Qt::on_plus_btn_clicked()
