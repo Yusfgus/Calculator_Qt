@@ -210,7 +210,7 @@ int Calculator_Qt::Solve()
 	char op;
 	std::string line, num, s, Postfix;
 	double num1, num2, dot = 10;
-	bool brackets, percentage;
+	bool brackets, percentage, negative=false;
 	std::stack<std::string>temp;
 	std::stack<double> numbers;
 
@@ -230,6 +230,12 @@ int Calculator_Qt::Solve()
 		}
 		else {
 			if (num != "") {
+				if (negative)
+				{
+					Postfix += num + "-";
+					num = "";
+					negative = false;
+				}
 				Postfix += num + " ";
 				num = "";
 			}
@@ -266,12 +272,16 @@ int Calculator_Qt::Solve()
 				if (line[i] == '-'&&i==0)
 				{	
 						Postfix += "0 ";
+						negative = true;
+						continue;
 				}
 				if (line[i] == '-' && i > 0)
 				{
 					if (line[i - 1] < '0' || line[i - 1] > '9' || i == 0)
 					{
 						Postfix += "0 ";
+						negative = true;
+						continue;
 					}
 
 				}
