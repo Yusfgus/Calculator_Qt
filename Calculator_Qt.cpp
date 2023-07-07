@@ -5,8 +5,11 @@
 Calculator_Qt::Calculator_Qt(QWidget* parent) : QMainWindow(parent)
 {
 	ui.setupUi(this);
-	on_AC_btn_clicked();
+	ui.label1->clear();
 	ui.label2->clear();
+	ui.ans_btn->setEnabled(false);
+	ans = 0;
+	newline = false;
 }
 
 Calculator_Qt::~Calculator_Qt()
@@ -15,118 +18,152 @@ Calculator_Qt::~Calculator_Qt()
 
 void Calculator_Qt::on_btn0_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "0");
 }
 
 void Calculator_Qt::on_btn1_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "1");
 }
 
 void Calculator_Qt::on_btn2_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "2");
 }
 
 void Calculator_Qt::on_btn3_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "3");
 }
 
 void Calculator_Qt::on_btn4_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "4");
 }
 
 void Calculator_Qt::on_btn5_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "5");
 }
 
 void Calculator_Qt::on_btn6_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "6");
 }
 
 void Calculator_Qt::on_btn7_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "7");
 }
 
 void Calculator_Qt::on_btn8_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "8");
 }
 
 void Calculator_Qt::on_btn9_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "9");
 }
 
 void Calculator_Qt::on_dot_btn_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + ".");
 }
 
 void Calculator_Qt::on_ans_btn_clicked()
 {
-	//ui.label1->setText(ui.label1->text() + QString::number(ans));
+	newLine();
 	ui.label1->setText(ui.label1->text() + "ans");
 }
 
 void Calculator_Qt::on_equal_btn_clicked()
 {
-	if (ui.label1->text() != "")
+	if (ui.label1->text() != "") {
 		this->Solve();
+		ui.ans_btn->setEnabled(true);
+		ui.label1->setAlignment(Qt::AlignRight);
+		newline = true;
+	}
+}
+
+void Calculator_Qt::newLine()
+{
+	if (!newline) return;
+	newline = false;
+	ui.label2->setText(ui.label2->text() + " = " + ui.label1->text());
+	ui.label1->clear();
+	ui.label1->setAlignment(Qt::AlignLeft);
 }
 
 void Calculator_Qt::on_plus_btn_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "+");
 }
 
 void Calculator_Qt::on_minus_btn_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "-");
 }
 
 void Calculator_Qt::on_mult_btn_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "*");
 }
 
 void Calculator_Qt::on_divide_btn_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "/");
 }
 
 void Calculator_Qt::on_rightBracket_btn_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + ")");
 }
 
 void Calculator_Qt::on_leftBracket_btn_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "(");
 }
 
 void Calculator_Qt::on_modulas_btn_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "%");
 }
 
 void Calculator_Qt::on_power_btn_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text() + "^");
 }
 
 void Calculator_Qt::on_AC_btn_clicked()
 {
+	newLine();
 	ui.label1->clear();
 }
 
 void Calculator_Qt::on_Del_btn_clicked()
 {
+	newLine();
 	ui.label1->setText(ui.label1->text().left(ui.label1->text().length() - 1));
 }
 
@@ -181,7 +218,7 @@ int Calculator_Qt::Solve()
 		}
 		else if (line[i] == 'a') {
 			num += std::to_string(ans);
-			i += 3;
+			i += 2;
 		}
 		else {
 			if (num != "") {

@@ -16,7 +16,8 @@ public:
 private:
     Ui::Calculator_QtClass ui;
 public:
-    double ans = 0;
+    double ans;
+    bool newline;
 
 private slots:
     void on_btn0_clicked();
@@ -50,4 +51,5 @@ private slots:
     int Solve();
 
     void on_change_theme_btn_clicked();
+    void newLine();
 };
