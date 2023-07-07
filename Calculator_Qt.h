@@ -52,4 +52,5 @@ private slots:
 
     void on_change_theme_btn_clicked();
     void newLine();
+    void on_screen1_textChanged();
 };

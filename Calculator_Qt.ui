@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>600</height>
+    <height>562</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@ QPushButton:pressed {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>530</y>
+      <y>490</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -62,7 +62,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>500</y>
+      <y>460</y>
       <width>50</width>
       <height>85</height>
      </rect>
@@ -92,7 +92,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>410</y>
+      <y>370</y>
       <width>50</width>
       <height>85</height>
      </rect>
@@ -118,7 +118,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>530</y>
+      <y>490</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -145,7 +145,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>530</y>
+      <y>490</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -175,7 +175,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>470</y>
+      <y>430</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -202,7 +202,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>470</y>
+      <y>430</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -230,7 +230,7 @@ line-height: normal;
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>470</y>
+      <y>430</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -257,7 +257,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>350</y>
+      <y>310</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -284,7 +284,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>410</y>
+      <y>370</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -311,7 +311,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>410</y>
+      <y>370</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -338,7 +338,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>410</y>
+      <y>370</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -365,7 +365,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>350</y>
+      <y>310</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -392,7 +392,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>350</y>
+      <y>310</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -419,7 +419,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>350</y>
+      <y>310</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -445,7 +445,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>290</y>
+      <y>250</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -461,7 +461,7 @@ font-weight: 500;
 line-height: normal;</string>
     </property>
     <property name="text">
-     <string>*</string>
+     <string>x</string>
     </property>
     <property name="shortcut">
      <string>*</string>
@@ -471,7 +471,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>290</y>
+      <y>250</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -500,7 +500,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>290</y>
+      <y>250</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -526,7 +526,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>290</y>
+      <y>250</y>
       <width>50</width>
       <height>50</height>
      </rect>
@@ -556,7 +556,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>250</y>
+      <y>210</y>
       <width>50</width>
       <height>25</height>
      </rect>
@@ -583,7 +583,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>250</y>
+      <y>210</y>
       <width>50</width>
       <height>25</height>
      </rect>
@@ -610,7 +610,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>250</y>
+      <y>210</y>
       <width>50</width>
       <height>25</height>
      </rect>
@@ -637,7 +637,7 @@ line-height: normal;</string>
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>250</y>
+      <y>210</y>
       <width>50</width>
       <height>25</height>
      </rect>
@@ -660,38 +660,11 @@ line-height: normal;</string>
      <string>^</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label1">
+   <widget class="QLabel" name="screen2">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>170</y>
-      <width>260</width>
-      <height>60</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: #000;
-font-family: Inter;
-font-size: 35px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;</string>
-    </property>
-    <property name="text">
-     <string>3</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label2">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>90</y>
+      <y>50</y>
       <width>260</width>
       <height>60</height>
      </rect>
@@ -727,6 +700,33 @@ font-family: Inter;
     </property>
     <property name="text">
      <string>dark</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="screen1">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>130</y>
+      <width>260</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border : none;
+background: transparent;
+
+color: #000;
+font-family: Inter;
+font-size: 35px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;</string>
+    </property>
+    <property name="text">
+     <string>3</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
     </property>
    </widget>
   </widget>
