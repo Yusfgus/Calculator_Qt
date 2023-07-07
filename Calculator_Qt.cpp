@@ -108,6 +108,7 @@ void Calculator_Qt::newLine()
 	ui.screen1->clear();
 	ui.screen1->setAlignment(Qt::AlignLeft);
 	ui.screen1->setEnabled(true);
+	ui.screen1->setText(QString::number(ans));
 }
 
 void Calculator_Qt::on_plus_btn_clicked()
@@ -262,6 +263,18 @@ int Calculator_Qt::Solve()
 				brackets = false;
 			}
 			else {
+				if (line[i] == '-'&&i==0)
+				{	
+						Postfix += "0 ";
+				}
+				if (line[i] == '-' && i > 0)
+				{
+					if (line[i - 1] < '0' || line[i - 1] > '9' || i == 0)
+					{
+						Postfix += "0 ";
+					}
+
+				}
 				s = line[i];
 				temp.push(s);
 				if (line[i] == '%')
@@ -269,6 +282,7 @@ int Calculator_Qt::Solve()
 			}
 		}
 	}
+
 	if (percentage) {
 		temp.pop();
 		Postfix += "p";
