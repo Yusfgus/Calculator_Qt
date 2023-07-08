@@ -210,17 +210,17 @@ int Calculator_Qt::Solve()
 	char op;
 	std::string line, num, s, Postfix;
 	double num1, num2, dot = 10;
-	bool brackets, percentage, negative=false;
+	bool brackets, percentage, negative;
 	std::stack<std::string>temp;
 	std::stack<double> numbers;
 
 	line = ui.screen1->text().toStdString();
 
 	num = "";
-	percentage = brackets = false;
+	negative = percentage = brackets = false;
 	for (int i = 0; i < line.size(); ++i)
 	{
-		if (('0' <= line[i] && line[i] <= '9') || line[i] == '.') { //a number
+		if (isdigit(line[i]) || line[i] == '.') { //a number
 			num += line[i];
 			percentage = false;
 		}
@@ -230,10 +230,8 @@ int Calculator_Qt::Solve()
 		}
 		else {
 			if (num != "") {
-				if (negative)
-				{
-					Postfix += num + "-";
-					num = "";
+				if (negative) {
+					num = '-' + num;
 					negative = false;
 				}
 				Postfix += num + " ";
@@ -244,23 +242,6 @@ int Calculator_Qt::Solve()
 				temp.pop();
 				Postfix += "p";
 				percentage = false;
-			}
-
-			if (line[i] == '-' && i == 0)
-			{
-				Postfix += "0 ";
-				negative = true;
-				continue;
-			}
-			if (line[i] == '-' && i > 0)
-			{
-				if (line[i - 1] < '0' || line[i - 1] > '9' || i == 0)
-				{
-					Postfix += "0 ";
-					negative = true;
-					continue;
-				}
-
 			}
 
 			if (!temp.empty() && !brackets && line[i] != '(' && line[i] != '^' && line[i] != '%')
@@ -286,7 +267,10 @@ int Calculator_Qt::Solve()
 				brackets = false;
 			}
 			else {
-				
+				if (line[i] == '-' && (i == 0 || !isdigit(line[i - 1]))) {
+					negative = true;
+					continue;
+				}
 				s = line[i];
 				temp.push(s);
 				if (line[i] == '%')
@@ -300,16 +284,11 @@ int Calculator_Qt::Solve()
 		Postfix += "p";
 	}
 
-	if (negative)
-	{
-		Postfix += num + "-";
-		num = "";
-		negative = false;
+	if (negative) {
+		num = '-' + num;
 	}
-	else
-	{
-		Postfix += num;
-	}
+
+	Postfix += num;
 
 	while (!temp.empty())
 	{
@@ -318,7 +297,7 @@ int Calculator_Qt::Solve()
 	}
 
 	std::cout << "The Postfix: " << Postfix << std::endl;
-
+	return 0;
 
 	for (size_t i = 0; i < Postfix.size(); i++)
 	{
