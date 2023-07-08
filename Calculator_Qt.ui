@@ -497,7 +497,7 @@ line-height: normal;</string>
      <string>/</string>
     </property>
     <property name="shortcut">
-     <string>Ctrl+S</string>
+     <string>/</string>
     </property>
    </widget>
    <widget class="QPushButton" name="AC_btn">
@@ -579,7 +579,7 @@ line-height: normal;</string>
      <string>)</string>
     </property>
     <property name="shortcut">
-     <string/>
+     <string>)</string>
     </property>
    </widget>
    <widget class="QPushButton" name="modulas_btn">
