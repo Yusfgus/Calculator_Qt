@@ -236,7 +236,7 @@ int Calculator_Qt::Solve()
 				}
 				if (negBracket)
 				{
-					num = (num[0] == '-' ? num.substr(1, num.size()): num = '-' + num);
+					num = (num[0] == '-' ? num.substr(1, num.size()) : num = '-' + num);
 				}
 				Postfix += num + " ";
 				num = "";
@@ -273,8 +273,8 @@ int Calculator_Qt::Solve()
 			}
 			else if (line[i] == '-')
 			{
-				negative = true;
-				if(i!=0 && isdigit(line[i-1]))
+				negative = !negative;
+				if (i != 0 && isdigit(line[i - 1]))
 					temp.push("+");
 			}
 			else {
