@@ -260,6 +260,7 @@ int Calculator_Qt::Solve()
 				temp.push("(");
 				brackets = true;
 				negBracket = negative;
+				negative = !negative;
 			}
 			else if (line[i] == ')')
 			{
