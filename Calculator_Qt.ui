@@ -42,8 +42,6 @@ QPushButton:pressed {
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -125,8 +123,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -155,8 +151,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -182,8 +176,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -209,7 +201,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -237,8 +228,6 @@ line-height: normal;
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -264,8 +253,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -291,7 +278,7 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
+/* box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset; */
 
 color: #1E86CF;
 font-family: Inter;
@@ -318,8 +305,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -345,8 +330,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -372,8 +355,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -399,8 +380,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -481,7 +460,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;
@@ -536,8 +514,6 @@ line-height: normal;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 14px;
-box-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;
-
 color: #1E86CF;
 font-family: Inter;
 font-size: 30px;

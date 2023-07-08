@@ -406,7 +406,7 @@ void Calculator_Qt::on_change_theme_btn_clicked()
 		ui.centralWidget->setStyleSheet("");
 		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\n\ncolor: #000;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
 		ui.equal_btn->setStyleSheet("border-radius: 14px;\nbackground: #19ACFF;\n\ncolor: #CEE4F8;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
-		style1 = style4 = "border-radius: 14px;\nbox-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;\n\n";
+		style1 = style4 = "border-radius: 14px;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;\n\n";
 		style2 = "border-radius: 14px;\nbackground: #ADE1FF;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;";
 		style3 = "border-radius: 10px;\nbackground: #ADE1FF;\n\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 15px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;";
 	}
