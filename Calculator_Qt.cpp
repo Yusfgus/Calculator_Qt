@@ -286,6 +286,7 @@ int Calculator_Qt::Solve()
 
 	if (negative) {
 		num = '-' + num;
+		negative = false;
 	}
 
 	Postfix += num;
@@ -297,16 +298,14 @@ int Calculator_Qt::Solve()
 	}
 
 	std::cout << "The Postfix: " << Postfix << std::endl;
-	return 0;
 
 	for (size_t i = 0; i < Postfix.size(); i++)
 	{
-
-		if ((Postfix[i] >= '0' && Postfix[i] <= '9') || Postfix[i] == '.')
+		 if (isdigit(Postfix[i]) || Postfix[i] == '.')
 		{
 
 			num1 = Postfix[i] - 48;
-			while (Postfix[i + 1] >= '0' && Postfix[i + 1] <= '9')
+			while (isdigit(Postfix[i + 1]))
 			{
 				num1 *= 10;
 				num1 += (Postfix[i + 1] - 48);
@@ -317,7 +316,7 @@ int Calculator_Qt::Solve()
 			{
 				i += 2;
 				num1 += (Postfix[i] - 48) / dot;
-				while (Postfix[i + 1] >= '0' && Postfix[i + 1] <= '9')
+				while (isdigit(Postfix[i + 1]))
 				{
 					dot /= 10;
 					num1 += ((Postfix[i + 1] - 48)) / dot;
@@ -327,6 +326,10 @@ int Calculator_Qt::Solve()
 			}
 
 			dot = 10;
+			if (negative) {
+				num1 *= -1;
+				negative = false;
+			}
 			numbers.push(num1);
 		}
 		else if (Postfix[i] == ' ')
@@ -356,6 +359,8 @@ int Calculator_Qt::Solve()
 				numbers.push(mod(num1, num2));
 			else if (Postfix[i] == '^')
 				numbers.push(pow(num1, num2));
+
+			std::cout << "number=" << numbers.top() << std::endl;
 		}
 	}
 
