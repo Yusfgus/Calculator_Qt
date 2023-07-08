@@ -389,13 +389,21 @@ int Calculator_Qt::Solve()
 	return 0;
 }
 
-void Calculator_Qt::on_change_theme_btn_clicked()
+void Calculator_Qt::on_image_button_clicked()
 {
 	QString style1, style2, style3, style4;
 	if (ui.change_theme_btn->text() == "dark") // currently it's light mode
 	{
-		ui.change_theme_btn->setStyleSheet("border-radius: 10px;background: #2E3138; color: #1E86CF;");
+		ui.change_theme_btn->setStyleSheet("border-radius: 13px;background: #2E3138; color:#2E3138;");
 		ui.change_theme_btn->setText("light");
+		//Animation//
+		ui.image_button->setStyleSheet(" background-image:url(:/Calculator_Qt/Screenshot 2023-07-08 021102.png); background-repeat: no-repeat; border-radius: 10px; font-family: Inter; ");
+		Animation_1 = new QPropertyAnimation(ui.image_button, "geometry");
+		Animation_1->setDuration(270);
+		Animation_1->setStartValue(ui.image_button->geometry());
+		Animation_1->setEndValue(QRect(260, 12, 24, 22));
+		Animation_1->start();
+		////////////////////////////
 		ui.centralWidget->setStyleSheet("background-color: #0B0C0D ;");
 		ui.screen1->setStyleSheet("border: none; color: #E1E1E1; font-family: Inter; font-size: 40px; font-style: normal; font-weight: 500; line-height: normal; ");
 		ui.equal_btn->setStyleSheet("color: #B2DAFF; font-family: Inter;font-size: 30px; font-style: normal; font-weight: 500 ; border-radius: 14px; background: #1991FF; ");
@@ -406,8 +414,16 @@ void Calculator_Qt::on_change_theme_btn_clicked()
 	}
 	else // currently it's dark mode
 	{
-		ui.change_theme_btn->setStyleSheet("border-radius: 10px;\nbackground: #B2E3FF;\nfont-family: Inter;\n\n\n");
+		ui.change_theme_btn->setStyleSheet("border-radius: 13px;\nbackground: #B2E3FF; color: #B2E3FF; \nfont-family: Inter;\n\n\n");
 		ui.change_theme_btn->setText("dark");
+		//Animation//
+		ui.image_button->setStyleSheet(" background-image:url(:/Calculator_Qt/Screenshot 2023-07-08 020926.png); background-repeat: no-repeat; border-radius: 10px; font-family: Inter; ");
+		Animation_2 = new QPropertyAnimation(ui.image_button, "geometry");
+		Animation_2->setDuration(270);
+		Animation_2->setStartValue(ui.image_button->geometry());
+		Animation_2->setEndValue(QRect(230, 12, 24, 22));
+		Animation_2->start();
+		////////////////////////////
 		ui.centralWidget->setStyleSheet("");
 		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\n\ncolor: #000;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
 		ui.equal_btn->setStyleSheet("border-radius: 14px;\nbackground: #19ACFF;\n\ncolor: #CEE4F8;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");

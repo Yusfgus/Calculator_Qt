@@ -4,6 +4,9 @@
 #include "ui_Calculator_Qt.h"
 #include <QLabel>
 #include <QLineEdit>
+#include <qpropertyanimation.h>
+#include <qdebug.h>
+#include <qrect.h>
 
 class Calculator_Qt : public QMainWindow
 {
@@ -15,6 +18,9 @@ public:
 
 private:
     Ui::Calculator_QtClass ui;
+    QPropertyAnimation* Animation_1;
+    QPropertyAnimation* Animation_2;
+
 public:
     double ans;
     bool newline;
@@ -50,7 +56,7 @@ private slots:
 
     int Solve();
 
-    void on_change_theme_btn_clicked();
+    void on_image_button_clicked();
     void newLine();
     void on_screen1_textChanged();
 };
