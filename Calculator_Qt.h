@@ -48,9 +48,11 @@ private slots:
     void on_AC_btn_clicked();
     void on_Del_btn_clicked();
 
-    int Solve();
+    double Solve();
 
     void on_change_theme_btn_clicked();
     void newLine();
     void on_screen1_textChanged();
+
+    void testCases();
 };

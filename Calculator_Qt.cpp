@@ -1,4 +1,4 @@
-#include<stack>
+#include <stack>
 #include "Calculator_Qt.h"
 #include <iostream>
 #include <QIntValidator>
@@ -11,6 +11,7 @@ Calculator_Qt::Calculator_Qt(QWidget* parent) : QMainWindow(parent)
 	ui.ans_btn->setEnabled(false);
 	ans = 0;
 	newline = false;
+	//testCases();
 }
 
 Calculator_Qt::~Calculator_Qt()
@@ -205,7 +206,7 @@ int mod(double num1, double num2)
 	return a % b;
 }
 
-int Calculator_Qt::Solve()
+double Calculator_Qt::Solve()
 {
 	char op;
 	std::string line, num, s, Postfix;
@@ -381,7 +382,7 @@ int Calculator_Qt::Solve()
 
 	ans = numbers.top();
 
-	return 0;
+	return ans;
 }
 
 void Calculator_Qt::on_change_theme_btn_clicked()
@@ -448,4 +449,35 @@ void Calculator_Qt::on_screen1_textChanged()
 		return;
 	else
 		this->on_Del_btn_clicked();
+}
+
+void Calculator_Qt::testCases()
+{
+	// to enable this function call it in the constructor
+	// write the test cases in the console
+	// the test cases must be in this formate --> equation = answer
+
+	std::string test, eq, sol;
+	bool flag;
+	for (int i = 0; i < 100; ++i)
+	{
+		eq = sol = "";
+		flag = false;
+		std::getline(std::cin, test);
+		for (int j = 0; j < test.size(); ++j)
+		{
+			if (test[j] == ' ') {
+				flag = true;
+				j += 2;
+				continue;
+			}
+			flag ? sol += test[j] : eq += test[j];
+		}
+		std::cout << "equation" << eq << " = " << sol << "\n";
+		ui.screen1->setText(QString::fromStdString(eq));
+		if (ans == this->Solve())
+			std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<goood\n";
+		else std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< < baaad\n";
+
+	}
 }
