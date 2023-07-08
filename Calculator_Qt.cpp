@@ -1,4 +1,4 @@
-#include<stack>
+#include <stack>
 #include "Calculator_Qt.h"
 #include <iostream>
 #include <QIntValidator>
@@ -11,6 +11,7 @@ Calculator_Qt::Calculator_Qt(QWidget* parent) : QMainWindow(parent)
 	ui.ans_btn->setEnabled(false);
 	ans = 0;
 	newline = false;
+	//testCases();
 }
 
 Calculator_Qt::~Calculator_Qt()
@@ -205,22 +206,22 @@ int mod(double num1, double num2)
 	return a % b;
 }
 
-int Calculator_Qt::Solve()
+double Calculator_Qt::Solve()
 {
 	char op;
 	std::string line, num, s, Postfix;
 	double num1, num2, dot = 10;
-	bool brackets, percentage, negative=false;
+	bool brackets, percentage, negative, negBracket;
 	std::stack<std::string>temp;
 	std::stack<double> numbers;
 
 	line = ui.screen1->text().toStdString();
 
 	num = "";
-	percentage = brackets = false;
+	negBracket = negative = percentage = brackets = false;
 	for (int i = 0; i < line.size(); ++i)
 	{
-		if (('0' <= line[i] && line[i] <= '9') || line[i] == '.') { //a number
+		if (isdigit(line[i]) || line[i] == '.') { //a number
 			num += line[i];
 			percentage = false;
 		}
@@ -230,11 +231,13 @@ int Calculator_Qt::Solve()
 		}
 		else {
 			if (num != "") {
-				if (negative)
-				{
-					Postfix += num + "-";
-					num = "";
+				if (negative) {
+					num = '-' + num;
 					negative = false;
+				}
+				if (negBracket)
+				{
+					num = (num[0] == '-' ? num.substr(1, num.size()) : num = '-' + num);
 				}
 				Postfix += num + " ";
 				num = "";
@@ -246,24 +249,7 @@ int Calculator_Qt::Solve()
 				percentage = false;
 			}
 
-			if (line[i] == '-' && i == 0)
-			{
-				Postfix += "0 ";
-				negative = true;
-				continue;
-			}
-			if (line[i] == '-' && i > 0)
-			{
-				if (line[i - 1] < '0' || line[i - 1] > '9' || i == 0)
-				{
-					Postfix += "0 ";
-					negative = true;
-					continue;
-				}
-
-			}
-
-			if (!temp.empty() && !brackets && line[i] != '(' && line[i] != '^' && line[i] != '%')
+			if (!temp.empty() && !brackets && line[i] != '(' && line[i] != '^' && line[i] != '%' && line[i] != '-')
 			{
 				if (temp.top() == "*" || temp.top() == "/" || temp.top() == "^" || temp.top() == "%") {
 					Postfix += temp.top();
@@ -274,6 +260,8 @@ int Calculator_Qt::Solve()
 			if (line[i] == '(') {
 				temp.push("(");
 				brackets = true;
+				negBracket = negative;
+				negative = !negative;
 			}
 			else if (line[i] == ')')
 			{
@@ -283,10 +271,15 @@ int Calculator_Qt::Solve()
 					temp.pop();
 				}
 				temp.pop();
-				brackets = false;
+				negBracket = brackets = false;
+			}
+			else if (line[i] == '-')
+			{
+				negative = !negative;
+				if (i != 0 && isdigit(line[i - 1]))
+					temp.push("+");
 			}
 			else {
-				
 				s = line[i];
 				temp.push(s);
 				if (line[i] == '%')
@@ -300,16 +293,13 @@ int Calculator_Qt::Solve()
 		Postfix += "p";
 	}
 
-	if (negative)
-	{
-		Postfix += num + "-";
-		num = "";
+	if (negative) {
+		num = '-' + num;
 		negative = false;
+		//temp.pop();
 	}
-	else
-	{
-		Postfix += num;
-	}
+
+	Postfix += num;
 
 	while (!temp.empty())
 	{
@@ -319,15 +309,13 @@ int Calculator_Qt::Solve()
 
 	std::cout << "The Postfix: " << Postfix << std::endl;
 
-
 	for (size_t i = 0; i < Postfix.size(); i++)
 	{
-
-		if ((Postfix[i] >= '0' && Postfix[i] <= '9') || Postfix[i] == '.')
+		if (isdigit(Postfix[i]) || Postfix[i] == '.')
 		{
 
 			num1 = Postfix[i] - 48;
-			while (Postfix[i + 1] >= '0' && Postfix[i + 1] <= '9')
+			while (isdigit(Postfix[i + 1]))
 			{
 				num1 *= 10;
 				num1 += (Postfix[i + 1] - 48);
@@ -338,7 +326,7 @@ int Calculator_Qt::Solve()
 			{
 				i += 2;
 				num1 += (Postfix[i] - 48) / dot;
-				while (Postfix[i + 1] >= '0' && Postfix[i + 1] <= '9')
+				while (isdigit(Postfix[i + 1]))
 				{
 					dot /= 10;
 					num1 += ((Postfix[i + 1] - 48)) / dot;
@@ -348,6 +336,10 @@ int Calculator_Qt::Solve()
 			}
 
 			dot = 10;
+			if (negative) {
+				num1 *= -1;
+				negative = false;
+			}
 			numbers.push(num1);
 		}
 		else if (Postfix[i] == ' ')
@@ -359,15 +351,17 @@ int Calculator_Qt::Solve()
 			num1 = num1 / 100;
 			numbers.push(num1);
 		}
+		else if (Postfix[i] == '-')
+		{
+			negative = true;
+		}
 		else {
 			num2 = numbers.top();
 			numbers.pop();
 			num1 = numbers.top();
 			numbers.pop();
 
-			if (Postfix[i] == '-')
-				numbers.push(Sub(num1, num2));
-			else if (Postfix[i] == '+')
+			if (Postfix[i] == '+')
 				numbers.push(Add(num1, num2));
 			else if (Postfix[i] == '*')
 				numbers.push(mult(num1, num2));
@@ -377,6 +371,8 @@ int Calculator_Qt::Solve()
 				numbers.push(mod(num1, num2));
 			else if (Postfix[i] == '^')
 				numbers.push(pow(num1, num2));
+
+			std::cout << "number=" << numbers.top() << std::endl;
 		}
 	}
 
@@ -386,7 +382,7 @@ int Calculator_Qt::Solve()
 
 	ans = numbers.top();
 
-	return 0;
+	return ans;
 }
 
 void Calculator_Qt::on_image_button_clicked()
@@ -427,7 +423,7 @@ void Calculator_Qt::on_image_button_clicked()
 		ui.centralWidget->setStyleSheet("");
 		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\n\ncolor: #000;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
 		ui.equal_btn->setStyleSheet("border-radius: 14px;\nbackground: #19ACFF;\n\ncolor: #CEE4F8;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
-		style1 = style4 = "border-radius: 14px;\nbox-shadow: 10px 10px 10px 0px rgba(255, 255, 255, 0.25) inset;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;\n\n";
+		style1 = style4 = "border-radius: 14px;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;\n\n";
 		style2 = "border-radius: 14px;\nbackground: #ADE1FF;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;";
 		style3 = "border-radius: 10px;\nbackground: #ADE1FF;\n\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 15px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;";
 	}
@@ -469,4 +465,35 @@ void Calculator_Qt::on_screen1_textChanged()
 		return;
 	else
 		this->on_Del_btn_clicked();
+}
+
+void Calculator_Qt::testCases()
+{
+	// to enable this function call it in the constructor
+	// write the test cases in the console
+	// the test cases must be in this formate --> equation = answer
+
+	std::string test, eq, sol;
+	bool flag;
+	for (int i = 0; i < 100; ++i)
+	{
+		eq = sol = "";
+		flag = false;
+		std::getline(std::cin, test);
+		for (int j = 0; j < test.size(); ++j)
+		{
+			if (test[j] == ' ') {
+				flag = true;
+				j += 2;
+				continue;
+			}
+			flag ? sol += test[j] : eq += test[j];
+		}
+		std::cout << "equation" << eq << " = " << sol << "\n";
+		ui.screen1->setText(QString::fromStdString(eq));
+		if (ans == this->Solve())
+			std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<goood\n";
+		else std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< < baaad\n";
+
+	}
 }
