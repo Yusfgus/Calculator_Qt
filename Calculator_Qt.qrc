@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="Calculator_Qt">
     <file>Screenshot 2023-07-08 020926.png</file>
+    <file>image 7.png</file>
     <file>Screenshot 2023-07-08 021102.png</file>
   </qresource>
 </RCC>

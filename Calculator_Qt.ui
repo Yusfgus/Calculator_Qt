@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Calculator_Qt</string>
+   <string>Calchup</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="Calculator_Qt.qrc">
+    <normaloff>:/Calculator_Qt/image 7.png</normaloff>:/Calculator_Qt/image 7.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QPushButton::hover {
@@ -497,7 +501,7 @@ line-height: normal;</string>
      <string>/</string>
     </property>
     <property name="shortcut">
-     <string>Ctrl+S</string>
+     <string>/</string>
     </property>
    </widget>
    <widget class="QPushButton" name="AC_btn">
@@ -579,7 +583,7 @@ line-height: normal;</string>
      <string>)</string>
     </property>
     <property name="shortcut">
-     <string/>
+     <string>)</string>
     </property>
    </widget>
    <widget class="QPushButton" name="modulas_btn">
