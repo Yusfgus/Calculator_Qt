@@ -664,9 +664,9 @@ line-height: normal;</string>
    <widget class="QPushButton" name="change_theme_btn">
     <property name="geometry">
      <rect>
-      <x>227</x>
+      <x>240</x>
       <y>10</y>
-      <width>60</width>
+      <width>50</width>
       <height>26</height>
      </rect>
     </property>
@@ -713,7 +713,7 @@ line-height: normal;</string>
    <widget class="QPushButton" name="image_button">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>242</x>
       <y>12</y>
       <width>24</width>
       <height>22</height>

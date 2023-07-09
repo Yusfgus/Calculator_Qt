@@ -397,11 +397,11 @@ void Calculator_Qt::on_image_button_clicked()
 		Animation_1 = new QPropertyAnimation(ui.image_button, "geometry");
 		Animation_1->setDuration(270);
 		Animation_1->setStartValue(ui.image_button->geometry());
-		Animation_1->setEndValue(QRect(260, 12, 24, 22));
+		Animation_1->setEndValue(QRect(265, 12, 24, 22));
 		Animation_1->start();
 		////////////////////////////
 		ui.centralWidget->setStyleSheet("background-color: #0B0C0D ;");
-		ui.screen1->setStyleSheet("border: none; color: #E1E1E1; font-family: Inter; font-size: 40px; font-style: normal; font-weight: 500; line-height: normal; ");
+		ui.screen1->setStyleSheet("border: none; color: #E1E1E1; font-family: Inter; font-size: 35px; font-style: normal; font-weight: 500; line-height: normal; ");
 		ui.equal_btn->setStyleSheet("color: #B2DAFF; font-family: Inter;font-size: 30px; font-style: normal; font-weight: 500 ; border-radius: 14px; background: #1991FF; ");
 		style1 = "border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;";
 		style2 = "border-radius: 14px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 30px;font-style: normal;font-weight: 500;line-height: normal; ";
@@ -417,7 +417,7 @@ void Calculator_Qt::on_image_button_clicked()
 		Animation_2 = new QPropertyAnimation(ui.image_button, "geometry");
 		Animation_2->setDuration(270);
 		Animation_2->setStartValue(ui.image_button->geometry());
-		Animation_2->setEndValue(QRect(230, 12, 24, 22));
+		Animation_2->setEndValue(QRect(242, 12, 24, 22));
 		Animation_2->start();
 		////////////////////////////
 		ui.centralWidget->setStyleSheet("");
