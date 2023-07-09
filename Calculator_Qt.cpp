@@ -261,7 +261,7 @@ double Calculator_Qt::Solve()
 				temp.push("(");
 				brackets = true;
 				negBracket = negative;
-				negative = !negative;
+				negative = false;
 			}
 			else if (line[i] == ')')
 			{
