@@ -11,6 +11,8 @@ Calculator_Qt::Calculator_Qt(QWidget* parent) : QMainWindow(parent)
 	ui.ans_btn->setEnabled(false);
 	ans = 0;
 	newline = false;
+	Animation_1 = new QPropertyAnimation(ui.image_button, "geometry");
+	Animation_2 = new QPropertyAnimation(ui.image_button, "geometry");
 	//testCases();
 }
 
