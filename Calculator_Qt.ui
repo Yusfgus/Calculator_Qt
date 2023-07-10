@@ -685,6 +685,9 @@ display : none;</string>
       <height>26</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="styleSheet">
      <string notr="true">border-radius: 13px;
 background: #B2E3FF;
@@ -807,6 +810,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <width>41</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="toolTip">
      <string/>
