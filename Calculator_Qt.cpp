@@ -227,9 +227,9 @@ void improve(std::string& line)
 				line[i] = ' ', line[i + 1] = '-';
 		}
 		else if (i > 0 && line[i] == '(' && isdigit(line[i - 1]))
-			line = line.substr(0, i - 1) + '*' + line.substr(i++, sz++), cout << line << '\n';
+			line = line.substr(0, i - 1) + '*' + line.substr(i++, sz++);
 		else if (line[i] == '.' && (i == 0 || !isdigit(line[i - 1])))
-			line = line.substr(0, i - 1) + '0' + line.substr(i++, sz++), cout << line << '\n';
+			line = line.substr(0, i - 1) + '0' + line.substr(i++, sz++);
 
 	}
 	line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
