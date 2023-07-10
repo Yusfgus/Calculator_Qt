@@ -108,13 +108,12 @@ void Calculator_Qt::on_equal_btn_clicked()
 void Calculator_Qt::newLine()
 {
 	if (!newline) return;
-	cout << "newline\n";
 	newline = false;
 	ui.screen2->setText(ui.screen2->text() + " = " + ui.screen1->text());
 	ui.screen1->clear();
 	ui.screen1->setAlignment(Qt::AlignLeft);
 	ui.screen1->setEnabled(true);
-	ui.screen1->setText(QString::number(ans));
+	ui.screen1->setText("ans");
 }
 
 void Calculator_Qt::on_plus_btn_clicked()
@@ -217,7 +216,7 @@ void improve(std::string& line)
 	int sz = line.size();
 	for (int i = 0; i < sz - 1; ++i)
 	{
-		if (line[i] == '+' && !isdigit(line[i + 1]) && line[i + 1] != '(' && line[i + 1] != '.')
+		if (line[i] == '+' && !isdigit(line[i + 1]) && line[i + 1] != '(' && line[i + 1] != '.' && line[i + 1] != 'a')
 			line[i] = ' ';
 		else if (line[i] == '-')
 		{
@@ -252,15 +251,17 @@ bool isSign(const char& c)
 
 bool syntaxError(std::string& line)
 {
+	cout << line << endl;
 	int sz = line.size(), br = 0;
-	if (!isdigit(line[0]) && !isSign(line[0]) && line[0] != '(') //first index
+	if (!isdigit(line[0]) && !isSign(line[0]) && line[0] != '(' && line[0] != 'a') //first index
 		return true;
 
-	if (!isdigit(line[sz - 1]) && line[sz - 1] != '%' && line[sz - 1] != ')') //last index
+	if (!isdigit(line[sz - 1]) && line[sz - 1] != '%' && line[sz - 1] != ')' && line[sz-1] != 's') //last index
 		return true;
 
 	if (line[0] == '(')
 		++br;
+
 	for (int i = 1; i < sz; ++i)
 	{
 		if (isOper(line[i]) && (isOper(line[i - 1]) || isSign(line[i - 1])))
@@ -308,8 +309,16 @@ double Calculator_Qt::Solve()
 			percentage = false;
 		}
 		else if (line[i] == 'a') {
+			if (ans < 0) {
+				negative = !negative;
+				ans *= -1;
+			}
 			num += std::to_string(ans);
-			i += 3;
+			if (negative) {
+				Postfix += 'n';
+				negative = false;
+			}
+			i += 2;
 		}
 		else {
 			if (num != "") {
