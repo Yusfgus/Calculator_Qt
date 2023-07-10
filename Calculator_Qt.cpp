@@ -489,16 +489,23 @@ double Calculator_Qt::Solve()
 
 	//cout << "The answer: " << numbers.top() << endl;
 
-	if (ui.screen2->text() != "")
-	{
-		if (history != "")
-			history += "\n"+ ui.screen2->text();
-		else
-			history = ui.screen2->text();
-		ui.textBrowser->setText(history);
-	}
+	//if (ui.screen2->text() != "")
+	////{
+	//	if (history != "")
+	//		history += "\n"+ ui.screen2->text();
+	//	else
+	//		history = ui.screen2->text();
+	//	ui.textBrowser->setText(history);
+	//}
 	ui.screen2->setText(ui.screen1->text());
 	ui.screen1->setText(QString::number(numbers.top()));
+
+	if (history != "")
+		history += "\n" + ui.screen2->text();
+	else
+		history = ui.screen2->text();
+	ui.textBrowser->setText(history);
+
 
 	ans = numbers.top();
 

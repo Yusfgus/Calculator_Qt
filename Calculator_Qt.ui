@@ -641,9 +641,12 @@ line-height: normal;</string>
     </property>
    </widget>
    <widget class="QLabel" name="screen2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>100</y>
       <width>260</width>
       <height>60</height>
@@ -655,7 +658,8 @@ font-family: Inter;
 font-size: 20px;
 font-style: normal;
 font-weight: 500;
-line-height: normal;</string>
+line-height: normal;
+display : none;</string>
     </property>
     <property name="text">
      <string>1+2</string>
@@ -736,10 +740,22 @@ font-family: Inter;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>40</y>
-      <width>281</width>
-      <height>71</height>
+      <y>20</y>
+      <width>231</width>
+      <height>121</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Inter</family>
+      <pointsize>-1</pointsize>
+      <italic>false</italic>
+      <underline>false</underline>
+      <stylestrategy>PreferDefault</stylestrategy>
+     </font>
+    </property>
+    <property name="statusTip">
+     <string comment="3"/>
     </property>
     <property name="styleSheet">
      <string notr="true">border : none;
@@ -750,6 +766,9 @@ font-family: Inter;
 font-size: 15px;
 font-style: normal;
 </string>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
     <property name="html">
      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
