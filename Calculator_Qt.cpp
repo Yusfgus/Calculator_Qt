@@ -201,12 +201,14 @@ double dive(double num1, double num2)
 	return num1 / num2;
 }
 
-int mod(double num1, double num2)
+int mod(double num1, double num2, bool& flag)
 {
 	int a = num1, b = num2;
 	if (num1 != a || num2 != b) {
 		//cout << "Syntax Error\n";
-		exit(0);
+		flag = true;
+		return 0;
+		//exit(0);
 	}
 	return a % b;
 }
@@ -233,10 +235,10 @@ void improve(std::string& line)
 	for (int i = 0; i < sz - 1; ++i)
 	{
 		if (isdigit(line[i]) || line[i] == 'a')digit = true;
-		
+		else if (line[i] == '(') digit = false;
+
 		if (line[i] == '+' && (isSign(line[i + 1]) || i == 0 || isOper(line[i - 1]) || line[i - 1] == ' ' && !digit))
 			line[i] = ' ';
-
 		else if (line[i] == '-')
 		{
 			if (line[i + 1] == '-')
@@ -349,6 +351,8 @@ double Calculator_Qt::Solve()
 				Postfix += num + " ";
 				num = "";
 			}
+
+			if (line[i] == '(') percentage = false;
 
 			if (percentage) {
 				temp.pop();
@@ -464,8 +468,18 @@ double Calculator_Qt::Solve()
 				numbers.push(mult(num1, num2));
 			else if (Postfix[i] == '/')
 				numbers.push(dive(num1, num2));
-			else if (Postfix[i] == '%')
-				numbers.push(mod(num1, num2));
+			else if (Postfix[i] == '%') {
+				bool flag = false;
+				int a = mod(num1, num2, flag);
+				if (flag) {
+					ui.screen1->setAlignment(Qt::AlignLeft);
+					ui.screen1->setText("Syntax Error");
+					ui.screen1->setEnabled(false);
+					return -1;
+				}
+				else
+					numbers.push(a);
+			}
 			else if (Postfix[i] == '^')
 				numbers.push(pow(num1, num2));
 		}
