@@ -229,10 +229,14 @@ bool isSign(const char& c)
 void improve(std::string& line)
 {
 	int sz = line.size();
+	bool digit = false;
 	for (int i = 0; i < sz - 1; ++i)
 	{
-		if (line[i] == '+' && (isSign(line[i + 1]) || i == 0 || isOper(line[i - 1]) || line[i - 1] == ' '))
+		if (isdigit(line[i]) || line[i] == 'a')digit = true;
+		
+		if (line[i] == '+' && (isSign(line[i + 1]) || i == 0 || isOper(line[i - 1]) || line[i - 1] == ' ' && !digit))
 			line[i] = ' ';
+
 		else if (line[i] == '-')
 		{
 			if (line[i + 1] == '-')
@@ -241,8 +245,8 @@ void improve(std::string& line)
 				line[i] = ' ', line[i + 1] = '-';
 			else if (line[i + 1] == '(' && (i == 0 || !isdigit(line[i - 1])))
 				line[i] = 'n';
-			else if (i == 0 || !isdigit(line[i - 1]) && line[i - 1] != ')' && line[i - 1] != ' ')
-				line[i] = 'n';
+			else if (i == 0 || !digit && line[i-1] == ' ' || !isdigit(line[i - 1]) && line[i - 1] != ')' && line[i - 1] != ' ' && line[i - 1] != 's')
+				line[i] = 'n';  
 		}
 		else if (i > 0 && line[i] == '(' && (isdigit(line[i - 1]) || line[i - 1] == 's'))
 			line = line.substr(0, i - 1) + '*' + line.substr(i++, sz++);
@@ -360,7 +364,7 @@ double Calculator_Qt::Solve()
 					temp.pop();
 				}
 
-				if (temp.top() != "(" && (isSign(line[i]))) {
+				if (!temp.empty() && temp.top() != "(" && (isSign(line[i]))) {
 					Postfix += temp.top() + " ";
 					temp.pop();
 				}
@@ -403,7 +407,7 @@ double Calculator_Qt::Solve()
 		temp.pop();
 	}
 
-	cout << "Postfix: " << Postfix << '\n';
+	cout << "Postfix: " << Postfix << "\n\n";
 
 	for (size_t i = 0; i < Postfix.size(); i++)
 	{
@@ -544,6 +548,11 @@ void Calculator_Qt::on_image_button_clicked()
 
 	ui.AC_btn->setStyleSheet(style4);
 	ui.Del_btn->setStyleSheet(style4);
+}
+
+void Calculator_Qt::on_change_theme_btn_clicked()
+{
+	on_image_button_clicked();
 }
 
 void Calculator_Qt::on_screen1_textChanged()
