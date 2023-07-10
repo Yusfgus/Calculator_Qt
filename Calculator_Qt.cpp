@@ -2,6 +2,8 @@
 #include "Calculator_Qt.h"
 #include <iostream>
 #include <QIntValidator>
+#define cout std::cout
+#define endl '\n'
 
 Calculator_Qt::Calculator_Qt(QWidget* parent) : QMainWindow(parent)
 {
@@ -93,7 +95,7 @@ void Calculator_Qt::on_ans_btn_clicked()
 void Calculator_Qt::on_equal_btn_clicked()
 {
 	if (ui.screen1->text() != "") {
-		this->Solve();
+		if (this->Solve() == -1) return;
 		ui.ans_btn->setEnabled(true);
 		ui.screen1->setAlignment(Qt::AlignRight);
 		ui.screen1->setEnabled(false);
@@ -104,6 +106,7 @@ void Calculator_Qt::on_equal_btn_clicked()
 void Calculator_Qt::newLine()
 {
 	if (!newline) return;
+	cout << "newline\n";
 	newline = false;
 	ui.screen2->setText(ui.screen2->text() + " = " + ui.screen1->text());
 	ui.screen1->clear();
@@ -163,6 +166,7 @@ void Calculator_Qt::on_power_btn_clicked()
 void Calculator_Qt::on_AC_btn_clicked()
 {
 	newLine();
+	ui.screen1->setEnabled(true);
 	ui.screen1->clear();
 }
 
@@ -209,9 +213,9 @@ int mod(double num1, double num2)
 void improve(std::string& line)
 {
 	int sz = line.size();
-	for (int i = 0; i < sz-1; ++i)
+	for (int i = 0; i < sz - 1; ++i)
 	{
-		if (line[i] == '+' && !isdigit(line[i + 1]) && line[i + 1] != '(')
+		if (line[i] == '+' && !isdigit(line[i + 1]) && line[i + 1] != '(' && line[i + 1] != '.')
 			line[i] = ' ';
 		else if (line[i] == '-')
 		{
@@ -220,8 +224,57 @@ void improve(std::string& line)
 			else if (line[i + 1] == '+')
 				line[i] = ' ', line[i + 1] = '-';
 		}
+		else if (i > 0 && line[i] == '(' && isdigit(line[i - 1]))
+			line = line.substr(0, i - 1) + '*' + line.substr(i++, sz++), cout << line << '\n';
+		else if (line[i] == '.' && (i == 0 || !isdigit(line[i - 1])))
+			line = line.substr(0, i - 1) + '0' + line.substr(i++, sz++), cout << line << '\n';
+
 	}
-	line.erase(std::remove(line.begin(), line.end(), ' ' ), line.end());
+	line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
+}
+
+bool isOper(const char& c)
+{
+	return (c == '^' || c == '%' || c == '/' || c == '*');
+}
+
+bool isOper(const std::string& c)
+{
+	return (c == "^" || c == "%" || c == "/" || c == "*");
+}
+
+bool isSign(const char& c)
+{
+	return (c == '+' || c == '-');
+}
+
+bool syntaxError(std::string& line)
+{
+	int sz = line.size(), br = 0;
+	if (!isdigit(line[0]) && !isSign(line[0]) && line[0] != '(') //first index
+		return true;
+
+	if (!isdigit(line[sz - 1]) && line[sz - 1] != '%' && line[sz - 1] != ')') //last index
+		return true;
+
+	if (line[0] == '(')
+		++br;
+	for (int i = 1; i < sz; ++i)
+	{
+		if (isOper(line[i]) && (isOper(line[i - 1]) || isSign(line[i - 1])))
+			return true;
+		if (line[i] == '(') {
+			++br;
+		}
+		else if (line[i] == ')') {
+			if (--br < 0)
+				return true;
+		}
+	}
+	if (br > 0)
+		return true;
+
+	return false;
 }
 
 double Calculator_Qt::Solve()
@@ -235,10 +288,17 @@ double Calculator_Qt::Solve()
 
 	line = ui.screen1->text().toStdString();
 	improve(line);
+	if (syntaxError(line)) {
+		ui.screen1->setAlignment(Qt::AlignLeft);
+		ui.screen1->setText("Syntax Error");
+		ui.screen1->setEnabled(false);
+		return -1;
+	}
+	cout << "the line:" << line << endl;
 
 	num = "";
 	negBracket = negative = percentage = brackets = false;
-	//std::cout << "line: " << line << "\nStack: ";
+	//cout << "line: " << line << "\nStack: ";
 	for (int i = 0; i < line.size(); ++i)
 	{
 		if (isdigit(line[i]) || line[i] == '.') { //a number
@@ -265,13 +325,17 @@ double Calculator_Qt::Solve()
 				percentage = false;
 			}
 
-			if (!temp.empty() && line[i] != '(' && line[i] != '^' && line[i] != '%' && line[i] != '-')
+			if (!temp.empty() && line[i] != '(' && line[i] != '^' && line[i] != '%')
 			{
-				if (temp.top() == "*" || temp.top() == "/" || temp.top() == "^" || temp.top() == "%") {
-					Postfix += temp.top() + " ";
-					temp.pop();
+				if (isOper(temp.top()))
+				{
+					if (line[i] != '-')
+					{
+						Postfix += temp.top() + " ";
+						temp.pop();
+					}
 				}
-				else if (temp.top() != "(" && (line[i] == '+' || line[i] == '-')) {
+				else if (temp.top() != "(" && (isSign(line[i]))) {
 					Postfix += temp.top() + " ";
 					temp.pop();
 				}
@@ -288,14 +352,14 @@ double Calculator_Qt::Solve()
 			}
 			else if (line[i] == '-')
 			{
-				if(i<line.size() && line[i+1]=='(' && (i==0 || !isdigit(line[i-1])))
+				if (i < line.size() && line[i + 1] == '(' && (i == 0 || !isdigit(line[i - 1])))
 				{
 					Postfix += "0 ";
 					temp.push("-");
 				}
 				else if (i == 0 || !isdigit(line[i - 1]) && line[i - 1] != ')')
 					negative = true;
-				else 
+				else
 					temp.push("-");
 			}
 			else if (line[i] == '+')
@@ -331,7 +395,7 @@ double Calculator_Qt::Solve()
 		temp.pop();
 	}
 
-	std::cout << "Postfix: " << Postfix << std::endl;
+	cout << "Postfix: " << Postfix << '\n';
 
 	for (size_t i = 0; i < Postfix.size(); i++)
 	{
@@ -480,7 +544,7 @@ void Calculator_Qt::on_screen1_textChanged()
 	int length = ui.screen1->text().length();
 	QChar newChar = ui.screen1->text()[length - 1];
 	QString valid = "0123456789.+-*/^%()";
-	if (valid.contains(newChar) || length >= 3 && ui.screen1->text()[length - 3] == 'a')
+	if (valid.contains(newChar) || length >= 3 && ui.screen1->text()[length - 3] == 'a' || ui.screen1->text() == "Syntax Error")
 		return;
 	else
 		this->on_Del_btn_clicked();
@@ -508,11 +572,11 @@ void Calculator_Qt::testCases()
 			}
 			flag ? sol += test[j] : eq += test[j];
 		}
-		std::cout << "equation" << eq << " = " << sol << "\n";
+		cout << "equation" << eq << " = " << sol << "\n";
 		ui.screen1->setText(QString::fromStdString(eq));
 		if (ans == this->Solve())
-			std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<goood\n";
-		else std::cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< < baaad\n";
+			cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<goood\n";
+		else cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< < baaad\n";
 
 	}
 }
