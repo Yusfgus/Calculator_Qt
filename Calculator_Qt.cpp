@@ -492,22 +492,18 @@ double Calculator_Qt::Solve()
 
 	//cout << "The answer: " << numbers.top() << endl;
 
-	//if (ui.screen2->text() != "")
-	////{
-	//	if (history != "")
-	//		history += "\n"+ ui.screen2->text();
-	//	else
-	//		history = ui.screen2->text();
-	//	ui.textBrowser->setText(history);
-	//}
+	if (ui.screen2->text() != "")
+	{
+		if (history != "")
+			history += "\n"+ ui.screen2->text();
+		else
+			history = ui.screen2->text();
+		ui.textBrowser->setText(history);
+	}
 	ui.screen2->setText(ui.screen1->text());
 	ui.screen1->setText(QString::number(numbers.top()));
 
-	if (history != "")
-		history += "\n" + ui.screen2->text();
-	else
-		history = ui.screen2->text();
-	ui.textBrowser->setText(history);
+
 
 
 	ans = numbers.top();
@@ -648,7 +644,7 @@ void Calculator_Qt::on_history_btn_clicked()
 		Animation_3 = new QPropertyAnimation(this, "geometry");
 		Animation_3->setDuration(350);
 		Animation_3->setStartValue(geometry());
-		Animation_3->setEndValue(QRect(x(), (y() + 30), 550, 562));
+		Animation_3->setEndValue(QRect(x(), y() + 30, 550, 562));
 		Animation_3->start();
 		show_history = true;
 		//cout << "hello wordl";
@@ -658,7 +654,7 @@ void Calculator_Qt::on_history_btn_clicked()
 		Animation_4 = new QPropertyAnimation(this, "geometry");
 		Animation_4->setDuration(350);
 		Animation_4->setStartValue(geometry());
-		Animation_4->setEndValue(QRect(x(), (y() + 30), 300, 562));
+		Animation_4->setEndValue(QRect(x(), y() + 30, 300, 562));
 		Animation_4->start();
 		show_history = false;
 	}
