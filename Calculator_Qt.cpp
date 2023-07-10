@@ -589,8 +589,6 @@ void Calculator_Qt::on_image_button_clicked()
 void Calculator_Qt::on_change_theme_btn_clicked()
 {
 	on_image_button_clicked();
-	setMinimumWidth(500);
-	//setFixedWidth(500);
 }
 
 void Calculator_Qt::on_screen1_textChanged()
@@ -644,17 +642,17 @@ void Calculator_Qt::on_history_btn_clicked()
 		Animation_3 = new QPropertyAnimation(this, "geometry");
 		Animation_3->setDuration(350);
 		Animation_3->setStartValue(geometry());
-		Animation_3->setEndValue(QRect(x(), y() + 30, 550, 562));
+		Animation_3->setEndValue(QRect(618, 127, 550, 562));
 		Animation_3->start();
 		show_history = true;
-		//cout << "hello wordl";
+		
 	}
 	else
 	{
 		Animation_4 = new QPropertyAnimation(this, "geometry");
 		Animation_4->setDuration(350);
 		Animation_4->setStartValue(geometry());
-		Animation_4->setEndValue(QRect(x(), y() + 30, 300, 562));
+		Animation_4->setEndValue(QRect(618, 127, 300, 562));
 		Animation_4->start();
 		show_history = false;
 	}
