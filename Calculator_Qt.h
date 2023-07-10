@@ -21,7 +21,10 @@ private:
     Ui::Calculator_QtClass ui;
     QPropertyAnimation* Animation_1;
     QPropertyAnimation* Animation_2;
+    QPropertyAnimation* Animation_3;
+    QPropertyAnimation* Animation_4;
     QString history;
+    bool show_history;
 
 public:
     double ans;
@@ -65,4 +68,5 @@ private slots:
 
     void testCases();
 
+    void on_history_btn_clicked();
 };
