@@ -290,6 +290,8 @@ bool syntaxError(std::string& line)
 		}
 		else if (line[i] == '.' && !isdigit(line[i - 1]))
 			return true;
+		else if (line[i] == 's' && i + 1 < sz && isdigit(line[i + 1]))
+			return true;
 	}
 	if (br > 0)
 		return true;
