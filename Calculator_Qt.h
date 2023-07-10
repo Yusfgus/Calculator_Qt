@@ -7,6 +7,7 @@
 #include <qpropertyanimation.h>
 #include <qdebug.h>
 #include <qrect.h>
+#include <qstring.h>
 
 class Calculator_Qt : public QMainWindow
 {
@@ -20,6 +21,7 @@ private:
     Ui::Calculator_QtClass ui;
     QPropertyAnimation* Animation_1;
     QPropertyAnimation* Animation_2;
+    QString history;
 
 public:
     double ans;

@@ -10,11 +10,13 @@ Calculator_Qt::Calculator_Qt(QWidget* parent) : QMainWindow(parent)
 	ui.setupUi(this);
 	ui.screen1->clear();
 	ui.screen2->clear();
+	ui.textBrowser->clear();
 	ui.ans_btn->setEnabled(false);
 	ans = 0;
 	newline = false;
 	Animation_1 = new QPropertyAnimation(ui.image_button, "geometry");
 	Animation_2 = new QPropertyAnimation(ui.image_button, "geometry");
+	history = "";
 	//testCases();
 }
 
@@ -201,12 +203,14 @@ double dive(double num1, double num2)
 	return num1 / num2;
 }
 
-int mod(double num1, double num2)
+int mod(double num1, double num2, bool& flag)
 {
 	int a = num1, b = num2;
 	if (num1 != a || num2 != b) {
 		//cout << "Syntax Error\n";
-		exit(0);
+		flag = true;
+		return 0;
+		//exit(0);
 	}
 	return a % b;
 }
@@ -233,10 +237,10 @@ void improve(std::string& line)
 	for (int i = 0; i < sz - 1; ++i)
 	{
 		if (isdigit(line[i]) || line[i] == 'a')digit = true;
-		
+		else if (line[i] == '(') digit = false;
+
 		if (line[i] == '+' && (isSign(line[i + 1]) || i == 0 || isOper(line[i - 1]) || line[i - 1] == ' ' && !digit))
 			line[i] = ' ';
-
 		else if (line[i] == '-')
 		{
 			if (line[i + 1] == '-')
@@ -245,8 +249,8 @@ void improve(std::string& line)
 				line[i] = ' ', line[i + 1] = '-';
 			else if (line[i + 1] == '(' && (i == 0 || !isdigit(line[i - 1])))
 				line[i] = 'n';
-			else if (i == 0 || !digit && line[i-1] == ' ' || !isdigit(line[i - 1]) && line[i - 1] != ')' && line[i - 1] != ' ' && line[i - 1] != 's')
-				line[i] = 'n';  
+			else if (i == 0 || !digit && line[i - 1] == ' ' || !isdigit(line[i - 1]) && line[i - 1] != ')' && line[i - 1] != ' ' && line[i - 1] != 's')
+				line[i] = 'n';
 		}
 		else if (i > 0 && line[i] == '(' && (isdigit(line[i - 1]) || line[i - 1] == 's'))
 			line = line.substr(0, i - 1) + '*' + line.substr(i++, sz++);
@@ -349,6 +353,8 @@ double Calculator_Qt::Solve()
 				Postfix += num + " ";
 				num = "";
 			}
+
+			if (line[i] == '(') percentage = false;
 
 			if (percentage) {
 				temp.pop();
@@ -464,14 +470,33 @@ double Calculator_Qt::Solve()
 				numbers.push(mult(num1, num2));
 			else if (Postfix[i] == '/')
 				numbers.push(dive(num1, num2));
-			else if (Postfix[i] == '%')
-				numbers.push(mod(num1, num2));
+			else if (Postfix[i] == '%') {
+				bool flag = false;
+				int a = mod(num1, num2, flag);
+				if (flag) {
+					ui.screen1->setAlignment(Qt::AlignLeft);
+					ui.screen1->setText("Syntax Error");
+					ui.screen1->setEnabled(false);
+					return -1;
+				}
+				else
+					numbers.push(a);
+			}
 			else if (Postfix[i] == '^')
 				numbers.push(pow(num1, num2));
 		}
 	}
 
 	//cout << "The answer: " << numbers.top() << endl;
+
+	if (ui.screen2->text() != "")
+	{
+		if (history != "")
+			history += "\n"+ ui.screen2->text();
+		else
+			history = ui.screen2->text();
+		ui.textBrowser->setText(history);
+	}
 	ui.screen2->setText(ui.screen1->text());
 	ui.screen1->setText(QString::number(numbers.top()));
 
@@ -479,6 +504,7 @@ double Calculator_Qt::Solve()
 
 	return 0;
 }
+
 
 void Calculator_Qt::on_image_button_clicked()
 {
@@ -497,6 +523,7 @@ void Calculator_Qt::on_image_button_clicked()
 		////////////////////////////
 		ui.centralWidget->setStyleSheet("background-color: #0B0C0D ;");
 		ui.screen1->setStyleSheet("border: none; color: #E1E1E1; font-family: Inter; font-size: 35px; font-style: normal; font-weight: 500; line-height: normal; ");
+		ui.textBrowser->setStyleSheet("border: none; color: #5C5B5B; font-family: Inter; font-size: 15px; font-style: normal; ");
 		ui.equal_btn->setStyleSheet("color: #B2DAFF; font-family: Inter;font-size: 30px; font-style: normal; font-weight: 500 ; border-radius: 14px; background: #1991FF; ");
 		style1 = "border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;";
 		style2 = "border-radius: 14px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 30px;font-style: normal;font-weight: 500;line-height: normal; ";
@@ -516,7 +543,8 @@ void Calculator_Qt::on_image_button_clicked()
 		Animation_2->start();
 		////////////////////////////
 		ui.centralWidget->setStyleSheet("");
-		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\n\ncolor: #000;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
+		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\ncolor: #5C5B5B;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
+		ui.textBrowser->setStyleSheet("border: none; background-color: #f0f0f0; color: #5C5B5B; font-family: Inter; font-size: 15px; font-style: normal; ");
 		ui.equal_btn->setStyleSheet("border-radius: 14px;\nbackground: #19ACFF;\n\ncolor: #CEE4F8;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
 		style1 = style4 = "border-radius: 14px;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;\n\n";
 		style2 = "border-radius: 14px;\nbackground: #ADE1FF;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;";
