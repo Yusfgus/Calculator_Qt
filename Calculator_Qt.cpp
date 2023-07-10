@@ -225,9 +225,9 @@ void improve(std::string& line)
 			else if (line[i + 1] == '+')
 				line[i] = ' ', line[i + 1] = '-';
 		}
-		else if (i > 0 && line[i] == '(' && isdigit(line[i - 1]))
+		else if (i > 0 && line[i] == '(' && (isdigit(line[i - 1]) || line[i-1] == 's'))
 			line = line.substr(0, i - 1) + '*' + line.substr(i++, sz++);
-		else if (line[i] == '.' && (i == 0 || !isdigit(line[i - 1])))
+		else if (line[i] == '.' && (i == 0 || !isdigit(line[i - 1]) && line[i - 1] != 's'))
 			line = line.substr(0, i - 1) + '0' + line.substr(i++, sz++);
 
 	}
@@ -273,6 +273,8 @@ bool syntaxError(std::string& line)
 			if (--br < 0)
 				return true;
 		}
+		else if (line[i] == '.' && !isdigit(line[i - 1]))
+			return true;
 	}
 	if (br > 0)
 		return true;
@@ -587,7 +589,7 @@ void Calculator_Qt::testCases()
 		ui.screen1->setText(QString::fromStdString(eq));
 		if (ans == this->Solve())
 			cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<goood\n";
-		else cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< < baaad\n";
+		else cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<baaad\n";
 
 	}
 }
