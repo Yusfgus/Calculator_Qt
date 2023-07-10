@@ -211,29 +211,6 @@ int mod(double num1, double num2)
 	return a % b;
 }
 
-void improve(std::string& line)
-{
-	int sz = line.size();
-	for (int i = 0; i < sz - 1; ++i)
-	{
-		if (line[i] == '+' && !isdigit(line[i + 1]) && line[i + 1] != '(' && line[i + 1] != '.' && line[i + 1] != 'a')
-			line[i] = ' ';
-		else if (line[i] == '-')
-		{
-			if (line[i + 1] == '-')
-				line[i] = ' ', line[i + 1] = '+';
-			else if (line[i + 1] == '+')
-				line[i] = ' ', line[i + 1] = '-';
-		}
-		else if (i > 0 && line[i] == '(' && (isdigit(line[i - 1]) || line[i-1] == 's'))
-			line = line.substr(0, i - 1) + '*' + line.substr(i++, sz++);
-		else if (line[i] == '.' && (i == 0 || !isdigit(line[i - 1]) && line[i - 1] != 's'))
-			line = line.substr(0, i - 1) + '0' + line.substr(i++, sz++);
-
-	}
-	line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
-}
-
 bool isOper(const char& c)
 {
 	return (c == '^' || c == '%' || c == '/' || c == '*');
@@ -246,17 +223,44 @@ bool isOper(const std::string& c)
 
 bool isSign(const char& c)
 {
-	return (c == '+' || c == '-');
+	return (c == '+' || c == '-' || c == 'n');
+}
+
+void improve(std::string& line)
+{
+	int sz = line.size();
+	for (int i = 0; i < sz - 1; ++i)
+	{
+		if (line[i] == '+' && (isSign(line[i + 1]) || i == 0 || isOper(line[i - 1]) || line[i - 1] == ' '))
+			line[i] = ' ';
+		else if (line[i] == '-')
+		{
+			if (line[i + 1] == '-')
+				line[i] = ' ', line[i + 1] = '+';
+			else if (line[i + 1] == '+')
+				line[i] = ' ', line[i + 1] = '-';
+			else if (line[i + 1] == '(' && (i == 0 || !isdigit(line[i - 1])))
+				line[i] = 'n';
+			else if (i == 0 || !isdigit(line[i - 1]) && line[i - 1] != ')' && line[i - 1] != ' ')
+				line[i] = 'n';
+		}
+		else if (i > 0 && line[i] == '(' && (isdigit(line[i - 1]) || line[i - 1] == 's'))
+			line = line.substr(0, i - 1) + '*' + line.substr(i++, sz++);
+		else if (line[i] == '.' && (i == 0 || !isdigit(line[i - 1]) && line[i - 1] != 's'))
+			line = line.substr(0, i - 1) + '0' + line.substr(i++, sz++);
+
+	}
+	line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
 }
 
 bool syntaxError(std::string& line)
 {
 	cout << line << endl;
 	int sz = line.size(), br = 0;
-	if (!isdigit(line[0]) && !isSign(line[0]) && line[0] != '(' && line[0] != 'a') //first index
+	if (!isdigit(line[0]) && !isSign(line[0]) && line[0] != '(' && line[0] != 'a' && line[0] != 'n') //first index
 		return true;
 
-	if (!isdigit(line[sz - 1]) && line[sz - 1] != '%' && line[sz - 1] != ')' && line[sz-1] != 's') //last index
+	if (!isdigit(line[sz - 1]) && line[sz - 1] != '%' && line[sz - 1] != ')' && line[sz - 1] != 's') //last index
 		return true;
 
 	if (line[0] == '(')
@@ -293,6 +297,7 @@ double Calculator_Qt::Solve()
 
 	line = ui.screen1->text().toStdString();
 	improve(line);
+	cout << "the line:" << line << endl;
 	if (syntaxError(line)) {
 		ui.screen1->setAlignment(Qt::AlignLeft);
 		ui.screen1->setText("Syntax Error");
@@ -322,6 +327,15 @@ double Calculator_Qt::Solve()
 			}
 			i += 2;
 		}
+		else if (line[i] == 'n') {
+			if (line[i + 1] == '(')
+			{
+				Postfix += "0 ";
+				temp.push("-");
+			}
+			else
+				negative = true;
+		}
 		else {
 			if (num != "") {
 				if (negative) {
@@ -342,13 +356,11 @@ double Calculator_Qt::Solve()
 			{
 				if (isOper(temp.top()))
 				{
-					if (line[i] != '-')
-					{
-						Postfix += temp.top() + " ";
-						temp.pop();
-					}
+					Postfix += temp.top() + " ";
+					temp.pop();
 				}
-				else if (temp.top() != "(" && (isSign(line[i]))) {
+
+				if (temp.top() != "(" && (isSign(line[i]))) {
 					Postfix += temp.top() + " ";
 					temp.pop();
 				}
@@ -362,23 +374,6 @@ double Calculator_Qt::Solve()
 					temp.pop();
 				}
 				temp.pop();
-			}
-			else if (line[i] == '-')
-			{
-				if (i < line.size() && line[i + 1] == '(' && (i == 0 || !isdigit(line[i - 1])))
-				{
-					Postfix += "0 ";
-					temp.push("-");
-				}
-				else if (i == 0 || !isdigit(line[i - 1]) && line[i - 1] != ')')
-					negative = true;
-				else
-					temp.push("-");
-			}
-			else if (line[i] == '+')
-			{
-				if (i != 0 && (isdigit(line[i - 1]) || line[i - 1] != ')'))
-					temp.push("+");
 			}
 			else {
 				s = line[i];
