@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     Calculator_Qt window;
-    window.setFixedSize(300, 560);
+    //window.setFixedSize(300, 560);
     window.show();
 
     return app.exec();

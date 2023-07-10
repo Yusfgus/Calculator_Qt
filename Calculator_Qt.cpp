@@ -16,7 +16,10 @@ Calculator_Qt::Calculator_Qt(QWidget* parent) : QMainWindow(parent)
 	newline = false;
 	Animation_1 = new QPropertyAnimation(ui.image_button, "geometry");
 	Animation_2 = new QPropertyAnimation(ui.image_button, "geometry");
+	Animation_3 = new QPropertyAnimation(this, "geometry");
+	Animation_4 = new QPropertyAnimation(this, "geometry");
 	history = "";
+	show_history = false;
 	//testCases();
 }
 
@@ -525,12 +528,13 @@ void Calculator_Qt::on_image_button_clicked()
 		Animation_1 = new QPropertyAnimation(ui.image_button, "geometry");
 		Animation_1->setDuration(270);
 		Animation_1->setStartValue(ui.image_button->geometry());
-		Animation_1->setEndValue(QRect(265, 12, 24, 22));
+		Animation_1->setEndValue(QRect(32, 10, 24, 22));
 		Animation_1->start();
 		////////////////////////////
 		ui.centralWidget->setStyleSheet("background-color: #0B0C0D ;");
 		ui.screen1->setStyleSheet("border: none; color: #E1E1E1; font-family: Inter; font-size: 35px; font-style: normal; font-weight: 500; line-height: normal; ");
 		ui.textBrowser->setStyleSheet("border: none; color: #5C5B5B; font-family: Inter; font-size: 15px; font-style: normal; ");
+		ui.history_btn->setStyleSheet("border-radius: 13px; background-image: url(:/Calculator_Qt/history icon 4.png);");
 		ui.equal_btn->setStyleSheet("color: #B2DAFF; font-family: Inter;font-size: 30px; font-style: normal; font-weight: 500 ; border-radius: 14px; background: #1991FF; ");
 		style1 = "border-radius: 14px;background: #2E3138; color: #1E86CF; font-family: Inter; font-size: 30px; font-style: normal ; font-weight:500;";
 		style2 = "border-radius: 14px; background: #005DB2; color: #84C3FD;font-family: Inter;font-size: 30px;font-style: normal;font-weight: 500;line-height: normal; ";
@@ -546,12 +550,13 @@ void Calculator_Qt::on_image_button_clicked()
 		Animation_2 = new QPropertyAnimation(ui.image_button, "geometry");
 		Animation_2->setDuration(270);
 		Animation_2->setStartValue(ui.image_button->geometry());
-		Animation_2->setEndValue(QRect(242, 12, 24, 22));
+		Animation_2->setEndValue(QRect(10, 10, 24, 22));
 		Animation_2->start();
 		////////////////////////////
-		ui.centralWidget->setStyleSheet("");
+		ui.centralWidget->setStyleSheet("background-color: #ffffff;");
 		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\ncolor: #5C5B5B;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
-		ui.textBrowser->setStyleSheet("border: none; background-color: #f0f0f0; color: #5C5B5B; font-family: Inter; font-size: 15px; font-style: normal; ");
+		ui.textBrowser->setStyleSheet("border: none; background-color: #ffffff; color: #5C5B5B; font-family: Inter; font-size: 15px; font-style: normal; ");
+		ui.history_btn->setStyleSheet("border-radius: 13px; background-image: url(:/Calculator_Qt/history icon 3.png);");
 		ui.equal_btn->setStyleSheet("border-radius: 14px;\nbackground: #19ACFF;\n\ncolor: #CEE4F8;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
 		style1 = style4 = "border-radius: 14px;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;\n\n";
 		style2 = "border-radius: 14px;\nbackground: #ADE1FF;\ncolor: #1E86CF;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;";
@@ -588,6 +593,8 @@ void Calculator_Qt::on_image_button_clicked()
 void Calculator_Qt::on_change_theme_btn_clicked()
 {
 	on_image_button_clicked();
+	setMinimumWidth(500);
+	//setFixedWidth(500);
 }
 
 void Calculator_Qt::on_screen1_textChanged()
@@ -630,5 +637,29 @@ void Calculator_Qt::testCases()
 			cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<goood\n";
 		else cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<baaad\n";
 
+	}
+}
+
+
+void Calculator_Qt::on_history_btn_clicked()
+{
+	if (show_history == false)
+	{
+		Animation_3 = new QPropertyAnimation(this, "geometry");
+		Animation_3->setDuration(350);
+		Animation_3->setStartValue(geometry());
+		Animation_3->setEndValue(QRect(x(), (y() + 30), 550, 562));
+		Animation_3->start();
+		show_history = true;
+		//cout << "hello wordl";
+	}
+	else
+	{
+		Animation_4 = new QPropertyAnimation(this, "geometry");
+		Animation_4->setDuration(350);
+		Animation_4->setStartValue(geometry());
+		Animation_4->setEndValue(QRect(x(), (y() + 30), 300, 562));
+		Animation_4->start();
+		show_history = false;
 	}
 }
