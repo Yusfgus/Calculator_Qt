@@ -642,7 +642,7 @@ void Calculator_Qt::on_history_btn_clicked()
 		Animation_3 = new QPropertyAnimation(this, "geometry");
 		Animation_3->setDuration(350);
 		Animation_3->setStartValue(geometry());
-		Animation_3->setEndValue(QRect(618, 127, 550, 562));
+		Animation_3->setEndValue(QRect(x(), y()+30, 550, 562));
 		Animation_3->start();
 		show_history = true;
 		
@@ -652,7 +652,7 @@ void Calculator_Qt::on_history_btn_clicked()
 		Animation_4 = new QPropertyAnimation(this, "geometry");
 		Animation_4->setDuration(350);
 		Animation_4->setStartValue(geometry());
-		Animation_4->setEndValue(QRect(618, 127, 300, 562));
+		Animation_4->setEndValue(QRect(x(), y()+30, 300, 562));
 		Animation_4->start();
 		show_history = false;
 	}
