@@ -723,10 +723,8 @@ line-height: normal;</string>
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-background-image: url(:/Calculator_Qt/Screenshot 2023-07-08 020926.png);
+     <string notr="true">background-image: url(:/Calculator_Qt/Screenshot 2023-07-08 020926.png);
 background-repeat: no-repeat;
-background-size: 100px 100px;
 border-radius: 11px;
 font-family: Inter;</string>
     </property>
