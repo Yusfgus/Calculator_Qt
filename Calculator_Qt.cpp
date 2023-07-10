@@ -206,6 +206,24 @@ int mod(double num1, double num2)
 	return a % b;
 }
 
+void improve(std::string& line)
+{
+	int sz = line.size();
+	for (int i = 0; i < sz-1; ++i)
+	{
+		if (line[i] == '+' && !isdigit(line[i + 1]) && line[i + 1] != '(')
+			line[i] = ' ';
+		else if (line[i] == '-')
+		{
+			if (line[i + 1] == '-')
+				line[i] = ' ', line[i + 1] = '+';
+			else if (line[i + 1] == '+')
+				line[i] = ' ', line[i + 1] = '-';
+		}
+	}
+	line.erase(std::remove(line.begin(), line.end(), ' ' ), line.end());
+}
+
 double Calculator_Qt::Solve()
 {
 	char op;
@@ -216,9 +234,11 @@ double Calculator_Qt::Solve()
 	std::stack<double> numbers;
 
 	line = ui.screen1->text().toStdString();
+	improve(line);
 
 	num = "";
 	negBracket = negative = percentage = brackets = false;
+	//std::cout << "line: " << line << "\nStack: ";
 	for (int i = 0; i < line.size(); ++i)
 	{
 		if (isdigit(line[i]) || line[i] == '.') { //a number
@@ -227,17 +247,13 @@ double Calculator_Qt::Solve()
 		}
 		else if (line[i] == 'a') {
 			num += std::to_string(ans);
-			i += 2;
+			i += 3;
 		}
 		else {
 			if (num != "") {
 				if (negative) {
-					num = '-' + num;
+					Postfix += 'n';
 					negative = false;
-				}
-				if (negBracket)
-				{
-					num = (num[0] == '-' ? num.substr(1, num.size()) : num = '-' + num);
 				}
 				Postfix += num + " ";
 				num = "";
@@ -245,38 +261,46 @@ double Calculator_Qt::Solve()
 
 			if (percentage) {
 				temp.pop();
-				Postfix += "p";
+				Postfix += "p ";
 				percentage = false;
 			}
 
-			if (!temp.empty() && !brackets && line[i] != '(' && line[i] != '^' && line[i] != '%' && line[i] != '-')
+			if (!temp.empty() && line[i] != '(' && line[i] != '^' && line[i] != '%' && line[i] != '-')
 			{
 				if (temp.top() == "*" || temp.top() == "/" || temp.top() == "^" || temp.top() == "%") {
-					Postfix += temp.top();
+					Postfix += temp.top() + " ";
+					temp.pop();
+				}
+				else if (temp.top() != "(" && (line[i] == '+' || line[i] == '-')) {
+					Postfix += temp.top() + " ";
 					temp.pop();
 				}
 			}
 
-			if (line[i] == '(') {
-				temp.push("(");
-				brackets = true;
-				negBracket = negative;
-				negative = false;
-			}
-			else if (line[i] == ')')
+			if (line[i] == ')')
 			{
 				while (!temp.empty() && temp.top() != "(")
 				{
-					Postfix += temp.top();
+					Postfix += temp.top() + " ";
 					temp.pop();
 				}
 				temp.pop();
-				negBracket = brackets = false;
 			}
 			else if (line[i] == '-')
 			{
-				negative = !negative;
-				if (i != 0 && isdigit(line[i - 1]))
+				if(i<line.size() && line[i+1]=='(' && (i==0 || !isdigit(line[i-1])))
+				{
+					Postfix += "0 ";
+					temp.push("-");
+				}
+				else if (i == 0 || !isdigit(line[i - 1]) && line[i - 1] != ')')
+					negative = true;
+				else 
+					temp.push("-");
+			}
+			else if (line[i] == '+')
+			{
+				if (i != 0 && (isdigit(line[i - 1]) || line[i - 1] != ')'))
 					temp.push("+");
 			}
 			else {
@@ -290,30 +314,29 @@ double Calculator_Qt::Solve()
 
 	if (percentage) {
 		temp.pop();
-		Postfix += "p";
+		Postfix += "p ";
 	}
 
 	if (negative) {
-		num = '-' + num;
+		num = 'n' + num;
 		negative = false;
 		//temp.pop();
 	}
 
-	Postfix += num;
+	Postfix += num + " ";
 
 	while (!temp.empty())
 	{
-		Postfix += temp.top();
+		Postfix += temp.top() + ' ';
 		temp.pop();
 	}
 
-	std::cout << "The Postfix: " << Postfix << std::endl;
+	std::cout << "Postfix: " << Postfix << std::endl;
 
 	for (size_t i = 0; i < Postfix.size(); i++)
 	{
 		if (isdigit(Postfix[i]) || Postfix[i] == '.')
 		{
-
 			num1 = Postfix[i] - 48;
 			while (isdigit(Postfix[i + 1]))
 			{
@@ -321,7 +344,6 @@ double Calculator_Qt::Solve()
 				num1 += (Postfix[i + 1] - 48);
 				i++;
 			}
-
 			if (Postfix[i + 1] == '.')
 			{
 				i += 2;
@@ -332,9 +354,7 @@ double Calculator_Qt::Solve()
 					num1 += ((Postfix[i + 1] - 48)) / dot;
 					i++;
 				}
-
 			}
-
 			dot = 10;
 			if (negative) {
 				num1 *= -1;
@@ -351,7 +371,7 @@ double Calculator_Qt::Solve()
 			num1 = num1 / 100;
 			numbers.push(num1);
 		}
-		else if (Postfix[i] == '-')
+		else if (Postfix[i] == 'n')
 		{
 			negative = true;
 		}
@@ -360,8 +380,9 @@ double Calculator_Qt::Solve()
 			numbers.pop();
 			num1 = numbers.top();
 			numbers.pop();
-
-			if (Postfix[i] == '+')
+			if (Postfix[i] == '-')
+				numbers.push(Sub(num1, num2));
+			else if (Postfix[i] == '+')
 				numbers.push(Add(num1, num2));
 			else if (Postfix[i] == '*')
 				numbers.push(mult(num1, num2));
@@ -371,8 +392,6 @@ double Calculator_Qt::Solve()
 				numbers.push(mod(num1, num2));
 			else if (Postfix[i] == '^')
 				numbers.push(pow(num1, num2));
-
-			std::cout << "number=" << numbers.top() << std::endl;
 		}
 	}
 
@@ -382,7 +401,7 @@ double Calculator_Qt::Solve()
 
 	ans = numbers.top();
 
-	return ans;
+	return 0;
 }
 
 void Calculator_Qt::on_image_button_clicked()
