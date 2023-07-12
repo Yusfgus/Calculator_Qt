@@ -201,15 +201,22 @@ double mult(double num1, double num2)
 	return num1 * num2;
 }
 
-double dive(double num1, double num2)
+double dive(double num1, double num2, bool& flag)
 {
-	return num1 / num2;
+	double a = num1, b = num2;
+	if (num2 == 0)
+	{
+		flag = true;
+		return -1;
+	}
+	else
+		return num1 / num2;
 }
 
 int mod(double num1, double num2, bool& flag)
 {
 	int a = num1, b = num2;
-	if (num1 != a || num2 != b) {
+	if ((num1 != a || num2 != b) || num2 == 0) {
 		//cout << "Syntax Error\n";
 		flag = true;
 		return 0;
@@ -467,6 +474,7 @@ double Calculator_Qt::Solve()
 			numbers.pop();
 			num1 = numbers.top();
 			numbers.pop();
+			bool flag = false;
 			if (Postfix[i] == '-')
 				numbers.push(Sub(num1, num2));
 			else if (Postfix[i] == '+')
@@ -474,9 +482,20 @@ double Calculator_Qt::Solve()
 			else if (Postfix[i] == '*')
 				numbers.push(mult(num1, num2));
 			else if (Postfix[i] == '/')
-				numbers.push(dive(num1, num2));
+			{
+				flag = false;
+				double div = dive(num1, num2, flag);
+				if (flag) {
+					ui.screen1->setAlignment(Qt::AlignLeft);
+					ui.screen1->setText("Syntax Error");
+					ui.screen1->setEnabled(false);
+					return -1;
+				}
+				else
+					numbers.push(div);
+			}
 			else if (Postfix[i] == '%') {
-				bool flag = false;
+				flag = false;
 				int a = mod(num1, num2, flag);
 				if (flag) {
 					ui.screen1->setAlignment(Qt::AlignLeft);
@@ -497,7 +516,7 @@ double Calculator_Qt::Solve()
 	if (ui.screen2->text() != "")
 	{
 		if (history != "")
-			history += "\n"+ ui.screen2->text();
+			history += "\n" + ui.screen2->text();
 		else
 			history = ui.screen2->text();
 		ui.textBrowser->setText(history);
@@ -551,8 +570,14 @@ void Calculator_Qt::on_image_button_clicked()
 		Animation_2->setEndValue(QRect(10, 10, 24, 22));
 		Animation_2->start();
 		////////////////////////////
-		ui.centralWidget->setStyleSheet("background-color: #ffffff;");
-		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\ncolor: #5C5B5B;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
+		ui.centralWidget->setStyleSheet("QPushButton::pressed{"
+			"	background - color: rgb(188, 188, 188);"
+			"}"
+			"QPushButton::hover{"
+			"	background - color: #D2D2D2;"
+			"}; "
+			"background - color: #FFFFFF; ");
+		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\n \nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
 		ui.textBrowser->setStyleSheet("border: none; background-color: #ffffff; color: #5C5B5B; font-family: Inter; font-size: 15px; font-style: normal; ");
 		ui.history_btn->setStyleSheet("border-radius: 13px; background-image: url(:/Calculator_Qt/history icon 3.png);");
 		ui.equal_btn->setStyleSheet("border-radius: 14px;\nbackground: #19ACFF;\n\ncolor: #CEE4F8;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
@@ -644,17 +669,17 @@ void Calculator_Qt::on_history_btn_clicked()
 		Animation_3 = new QPropertyAnimation(this, "geometry");
 		Animation_3->setDuration(350);
 		Animation_3->setStartValue(geometry());
-		Animation_3->setEndValue(QRect(x(), y()+30, 550, 562));
+		Animation_3->setEndValue(QRect(x(), y() + 30, 550, 562));
 		Animation_3->start();
 		show_history = true;
-		
+
 	}
 	else
 	{
 		Animation_4 = new QPropertyAnimation(this, "geometry");
 		Animation_4->setDuration(350);
 		Animation_4->setStartValue(geometry());
-		Animation_4->setEndValue(QRect(x(), y()+30, 300, 562));
+		Animation_4->setEndValue(QRect(x(), y() + 30, 300, 562));
 		Animation_4->start();
 		show_history = false;
 	}
