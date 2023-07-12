@@ -551,8 +551,14 @@ void Calculator_Qt::on_image_button_clicked()
 		Animation_2->setEndValue(QRect(10, 10, 24, 22));
 		Animation_2->start();
 		////////////////////////////
-		ui.centralWidget->setStyleSheet("background-color: #ffffff;");
-		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\ncolor: #5C5B5B;\nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
+		ui.centralWidget->setStyleSheet("QPushButton::pressed{"
+			"	background - color: rgb(188, 188, 188);"
+		    "}"
+			"QPushButton::hover{"
+			"	background - color: #D2D2D2;"
+			"}; "
+		    "background - color: #FFFFFF; ");
+		ui.screen1->setStyleSheet("border : none;\nbackground: transparent;\n \nfont-family: Inter;\nfont-size: 35px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");
 		ui.textBrowser->setStyleSheet("border: none; background-color: #ffffff; color: #5C5B5B; font-family: Inter; font-size: 15px; font-style: normal; ");
 		ui.history_btn->setStyleSheet("border-radius: 13px; background-image: url(:/Calculator_Qt/history icon 3.png);");
 		ui.equal_btn->setStyleSheet("border-radius: 14px;\nbackground: #19ACFF;\n\ncolor: #CEE4F8;\nfont-family: Inter;\nfont-size: 30px;\nfont-style: normal;\nfont-weight: 500;\nline-height: normal;");

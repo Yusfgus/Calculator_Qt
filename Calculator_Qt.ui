@@ -24,20 +24,19 @@
     <normaloff>:/Calculator_Qt/image 7.png</normaloff>:/Calculator_Qt/image 7.png</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #ffffff;
+   <string notr="true">
+
+
+QPushButton::pressed {
+    background-color: rgb(188, 188, 188);
+}
 
 QPushButton::hover {
-    background-color: #E1E1E1;
-}
-
-QPushButton:pressed {
     background-color: #D2D2D2;
-}
+};
 
-history_btn::hover{
-    background-color: #ff0000;
-}
-</string>
+
+background-color: #FFFFFF;</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -375,7 +374,14 @@ font-family: Inter;
 font-size: 30px;
 font-style: normal;
 font-weight: 500;
-line-height: normal;</string>
+line-height: normal;
+
+
+
+QPushButton#btn9:pressed {
+    background-color: #E1E1E1;
+};
+</string>
     </property>
     <property name="text">
      <string>9</string>
