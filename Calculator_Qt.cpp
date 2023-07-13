@@ -305,18 +305,6 @@ bool syntaxError(const std::string& line)
 	return false;
 }
 
-bool mathError(const std::string& line)
-{
-	int sz = line.size();
-	for (int i= 0; i<sz; ++i)
-	{
-		if (line[i] == '/' && line[i + 1] == '0')
-			return true;
-	}
-
-	return false;
-}
-
 double Calculator_Qt::Solve()
 {
 	char op;
@@ -331,12 +319,6 @@ double Calculator_Qt::Solve()
 	if (syntaxError(line)) {
 		ui.screen1->setAlignment(Qt::AlignLeft);
 		ui.screen1->setText("Syntax Error");
-		ui.screen1->setEnabled(false);
-		return -1;
-	}
-	if (mathError(line)) {
-		ui.screen1->setAlignment(Qt::AlignLeft);
-		ui.screen1->setText("Math Error");
 		ui.screen1->setEnabled(false);
 		return -1;
 	}
