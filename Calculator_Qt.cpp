@@ -264,9 +264,8 @@ void improve(std::string& line)
 	line.erase(std::remove(line.begin(), line.end(), ' '), line.end());
 }
 
-bool syntaxError(std::string& line)
+bool syntaxError(const std::string& line)
 {
-	cout << line << endl;
 	int sz = line.size(), br = 0;
 	if (!isdigit(line[0]) && !isSign(line[0]) && line[0] != '(' && line[0] != 'a' && line[0] != 'n') //first index
 		return true;
@@ -299,6 +298,18 @@ bool syntaxError(std::string& line)
 	return false;
 }
 
+bool mathError(const std::string& line)
+{
+	int sz = line.size();
+	for (int i= 0; i<sz; ++i)
+	{
+		if (line[i] == '/' && line[i + 1] == '0')
+			return true;
+	}
+
+	return false;
+}
+
 double Calculator_Qt::Solve()
 {
 	char op;
@@ -310,14 +321,19 @@ double Calculator_Qt::Solve()
 
 	line = ui.screen1->text().toStdString();
 	improve(line);
-	cout << "the line:" << line << endl;
 	if (syntaxError(line)) {
 		ui.screen1->setAlignment(Qt::AlignLeft);
 		ui.screen1->setText("Syntax Error");
 		ui.screen1->setEnabled(false);
 		return -1;
 	}
-	cout << "the line:" << line << endl;
+	if (mathError(line)) {
+		ui.screen1->setAlignment(Qt::AlignLeft);
+		ui.screen1->setText("Math Error");
+		ui.screen1->setEnabled(false);
+		return -1;
+	}
+	cout << "The line:" << line << endl;
 
 	num = "";
 	negBracket = negative = percentage = brackets = false;
@@ -605,7 +621,7 @@ void Calculator_Qt::on_screen1_textChanged()
 	int length = ui.screen1->text().length();
 	QChar newChar = ui.screen1->text()[length - 1];
 	QString valid = "0123456789.+-*/^%()";
-	if (valid.contains(newChar) || length >= 3 && ui.screen1->text()[length - 3] == 'a' || ui.screen1->text() == "Syntax Error")
+	if (valid.contains(newChar) || length >= 3 && ui.screen1->text()[length - 3] == 'a' || ui.screen1->text() == "Syntax Error" || ui.screen1->text() == "Math Error")
 		return;
 	else
 		this->on_Del_btn_clicked();
