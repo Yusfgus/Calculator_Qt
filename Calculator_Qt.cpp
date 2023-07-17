@@ -114,11 +114,14 @@ void Calculator_Qt::newLine()
 {
 	if (!newline) return;
 	newline = false;
-	ui.screen2->setText(ui.screen2->text() + " = " + ui.screen1->text());
-	ui.screen1->clear();
-	ui.screen1->setAlignment(Qt::AlignLeft);
+	if (ui.screen1->text() != "Syntax Error" && ui.screen1->text() != "Math Error") {
+		ui.screen2->setText(ui.screen2->text() + " = " + ui.screen1->text());
+		ui.screen1->setText("ans");
+		ui.screen1->setAlignment(Qt::AlignLeft);
+	}
+	else
+		ui.screen1->clear();
 	ui.screen1->setEnabled(true);
-	ui.screen1->setText("ans");
 }
 
 void Calculator_Qt::on_plus_btn_clicked()
@@ -320,6 +323,7 @@ double Calculator_Qt::Solve()
 		ui.screen1->setAlignment(Qt::AlignLeft);
 		ui.screen1->setText("Syntax Error");
 		ui.screen1->setEnabled(false);
+		newline = true;
 		return -1;
 	}
 	cout << "The line:" << line << endl;
@@ -438,14 +442,22 @@ double Calculator_Qt::Solve()
 			}
 			if (Postfix[i + 1] == '.')
 			{
-				i += 2;
+				/*i += 2;
 				num1 += (Postfix[i] - 48) / dot;
 				while (isdigit(Postfix[i + 1]))
 				{
 					dot /= 10;
 					num1 += ((Postfix[i + 1] - 48)) / dot;
 					i++;
+				}*/
+				i += 2;
+				std::string dec = "0.";
+				while (isdigit(Postfix[i]))
+				{
+					dec += Postfix[i];
+					++i;
 				}
+				num1 += std::stod(dec);
 			}
 			dot = 10;
 			if (negative) {
@@ -485,8 +497,9 @@ double Calculator_Qt::Solve()
 				double div = dive(num1, num2, flag);
 				if (flag) {
 					ui.screen1->setAlignment(Qt::AlignLeft);
-					ui.screen1->setText("Syntax Error");
+					ui.screen1->setText("Math Error");
 					ui.screen1->setEnabled(false);
+					newline = true;
 					return -1;
 				}
 				else
@@ -497,8 +510,9 @@ double Calculator_Qt::Solve()
 				int a = mod(num1, num2, flag);
 				if (flag) {
 					ui.screen1->setAlignment(Qt::AlignLeft);
-					ui.screen1->setText("Syntax Error");
+					ui.screen1->setText("Math Error");
 					ui.screen1->setEnabled(false);
+					newline = true;
 					return -1;
 				}
 				else
